@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ChatPage from "./components/ChatPage";
 
 import { StyleSheet, Text, View } from "react-native";
 
@@ -22,6 +23,7 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="ChatPage" component={ChatPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

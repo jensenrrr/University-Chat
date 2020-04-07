@@ -16,6 +16,11 @@ function Home({ navigation }) {
         title="Go to Register"
         onPress={() => navigation.navigate("Register")}
       />
+      <Text>sssss</Text>
+      <Button
+        title="Go to Chat"
+        onPress={() => navigation.navigate("ChatPage")}
+      />
     </View>
   );
 }
