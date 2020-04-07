@@ -8,18 +8,18 @@ function Home({ navigation }) {
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Login"
-        onPress={() => navigation.navigate("Login")}
+        title="Go to OS"
+        onPress={() => navigation.navigate("ChatPage", { chat: "OS" })}
       />
       <Text>sssss</Text>
       <Button
-        title="Go to Register"
-        onPress={() => navigation.navigate("Register")}
+        title="Go to AI"
+        onPress={() => navigation.navigate("ChatPage", { chat: "AI" })}
       />
       <Text>sssss</Text>
       <Button
-        title="Go to Chat"
-        onPress={() => navigation.navigate("ChatSelection")}
+        title="Go to HCI"
+        onPress={() => navigation.navigate("ChatPage", { chat: "HCI" })}
       />
     </View>
   );
