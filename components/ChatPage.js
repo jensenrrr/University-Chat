@@ -20,7 +20,7 @@ class ChatPage extends React.Component {
           }
         },
         {
-          _id: 1,
+          _id: 2,
           text: "Hello developer",
           createdAt: new Date(),
           user: {
@@ -30,7 +30,7 @@ class ChatPage extends React.Component {
           }
         },
         {
-          _id: 1,
+          _id: 3,
           text: "Hello developer",
           createdAt: new Date(),
           user: {
