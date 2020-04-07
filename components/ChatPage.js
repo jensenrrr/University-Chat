@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Message from "./Message";
 import { GiftedChat } from "react-native-gifted-chat"; // 0.3.0
 
 class ChatPage extends React.Component {
