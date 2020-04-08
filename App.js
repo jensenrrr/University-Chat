@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import * as firebase from "firebase";
 
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -10,6 +11,18 @@ import ChatPage from "./components/ChatPage";
 import ChatSelection from "./components/ChatSelection";
 
 import { StyleSheet, Text, View } from "react-native";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyA_39e6SCijA5UWOrLViU_169i7DCpw1iE",
+  authDomain: "universitychat-9a9c8.firebaseapp.com",
+  databaseURL: "https://universitychat-9a9c8.firebaseio.com",
+  projectId: "universitychat-9a9c8",
+  storageBucket: "universitychat-9a9c8.appspot.com",
+  messagingSenderId: "378196588409",
+  appId: "1:378196588409:web:1916dfb21986d052f061a8",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
@@ -40,6 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
