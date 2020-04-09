@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
-import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
-function Login({ navigation }) {
+function Register({ navigation }) {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
-      <View style={styles.formContainer}>
-        <LoginForm />
+      <View>
+        <RegisterForm />
       </View>
     </KeyboardAvoidingView>
   );
@@ -15,10 +15,8 @@ function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#a29bfe",
   },
 });
 
-export default Login;
+export default Register;
