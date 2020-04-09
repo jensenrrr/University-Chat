@@ -21,6 +21,11 @@ function Home({ navigation }) {
         title="Go to Chat"
         onPress={() => navigation.navigate("ChatSelection")}
       />
+       <Text>sssss</Text>
+       <Button
+        title="Go to Add Chat"
+        onPress={() => navigation.navigate("Add")}
+      />
     </View>
   );
 }
