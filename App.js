@@ -12,7 +12,6 @@ import ChatSelection from "./components/ChatSelection";
 import Add from "./components/Add";
 
 import { StyleSheet, Text, View } from "react-native";
-import { LearnMoreLinks } from "react-native/Libraries/NewAppScreen";
 
 const Stack = createStackNavigator();
 
