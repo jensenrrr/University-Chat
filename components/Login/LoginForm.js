@@ -25,6 +25,7 @@ class LoginForm extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.errorMessage}>
@@ -67,6 +68,14 @@ class LoginForm extends Component {
           >
             <Text style={styles.buttonText}>Log in</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.signUpText}
+            onPress={() => navigation.navigate("Register")}
+          >
+            <Text style={{ color: "#FFF" }}>
+              Don't have an account? Sign Up!
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -78,7 +87,7 @@ export default LoginForm;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 200,
+    paddingTop: 20,
   },
   form: {
     marginHorizontal: 30,
@@ -108,6 +117,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
+  },
+  signUpText: {
+    height: 40,
+    marginTop: 16,
+    alignSelf: "center",
   },
   error: {
     color: "#fff",

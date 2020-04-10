@@ -6,7 +6,7 @@ function Register({ navigation }) {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View>
-        <RegisterForm />
+        <RegisterForm navigation={navigation} />
       </View>
     </KeyboardAvoidingView>
   );

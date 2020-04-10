@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import * as React from "react";
+import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as firebase from "firebase";
@@ -12,30 +12,50 @@ import ChatSelection from "./components/ChatSelection";
 import Add from "./components/Add";
 
 import { StyleSheet, Text, View } from "react-native";
+import { LearnMoreLinks } from "react-native/Libraries/NewAppScreen";
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ title: "Welcome" }}
-        />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen
-          name="ChatPage"
-          component={ChatPage}
-          options={({ route }) => ({ title: route.params.chat })}
-        />
-        <Stack.Screen name="ChatSelection" component={ChatSelection} />
-        <Stack.Screen name="Add" component={Add} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export default class App extends Component {
+  state = {
+    isLoggedIn: false,
+  };
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setState({ isLoggedIn: user ? true : false });
+    });
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          {this.state.isLoggedIn ? (
+            <>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ title: "Welcome" }}
+              />
+              <Stack.Screen
+                name="ChatPage"
+                component={ChatPage}
+                options={({ route }) => ({ title: route.params.chat })}
+              />
+              <Stack.Screen name="ChatSelection" component={ChatSelection} />
+              <Stack.Screen name="Add" component={Add} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -57,5 +77,8 @@ var firebaseConfig = {
   messagingSenderId: "378196588409",
   appId: "1:378196588409:web:1916dfb21986d052f061a8",
 };
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}

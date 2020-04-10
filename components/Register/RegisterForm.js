@@ -27,6 +27,7 @@ class RegisterForm extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.errorMessage}>
@@ -99,6 +100,14 @@ class RegisterForm extends Component {
           >
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.logInText}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={{ color: "#FFF" }}>
+              Already have an account? Log In!
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -139,6 +148,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
+  },
+  logInText: {
+    height: 40,
+    marginTop: 16,
+    alignSelf: "center",
   },
   error: {
     color: "#fff",
