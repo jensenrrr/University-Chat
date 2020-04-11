@@ -9,17 +9,17 @@ function Home({ navigation }) {
       <Text>Home Screen</Text>
       <Button
         title="Go to OS"
-        onPress={() => navigation.navigate("ChatPage", { chat: "OS" })}
+        onPress={() => navigation.navigate("ChatPage", { name: "OS" })}
       />
       <Text>sssss</Text>
       <Button
         title="Go to AI"
-        onPress={() => navigation.navigate("ChatPage", { chat: "AI" })}
+        onPress={() => navigation.navigate("ChatPage", { name: "AI" })}
       />
       <Text>sssss</Text>
       <Button
         title="Go to HCI"
-        onPress={() => navigation.navigate("ChatPage", { chat: "HCI" })}
+        onPress={() => navigation.navigate("ChatPage", { name: "HCI" })}
       />
     </View>
   );

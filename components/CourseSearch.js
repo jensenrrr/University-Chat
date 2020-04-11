@@ -43,7 +43,7 @@ export default class CourseSearch extends React.Component {
       const newReference = firebase
         .database()
         .ref("/Users/" + firebase.auth().currentUser.uid + "/courses/")
-        .child(this.state.selected.course_number);
+        .child(this.state.selected.course_name);
 
       newReference
         .set({
