@@ -12,18 +12,36 @@ class RegisterForm extends Component {
   state = {
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     password: "",
     errorMessage: null,
   };
 
   handleRegister = () => {
-    const { email, password } = this.state;
+    const { email, password, firstName, lastName } = this.state;
 
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .catch((error) => this.setState({ errorMessage: error.message }));
+
+    firebase
+      .database()
+      .ref("Users/")
+      .set({
+        firstName,
+        lastName,
+        email,
+      })
+      .then((data) => {
+        //success callback
+        console.log("data ", data);
+      })
+      .catch((error) => {
+        //error callback
+        console.log("error ", error);
+      });
   };
 
   render() {

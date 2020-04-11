@@ -1,19 +1,53 @@
-import React from 'react';
-import { Text, View, StyleSheet, FlatList, TouchableHighlight, Button } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableHighlight,
+  Button,
+} from "react-native";
+import { SearchBar } from "react-native-elements";
 import courses from "./data/courses.json";
+import * as firebase from "firebase";
+
 export default class CourseSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { search: '' };
+    this.state = { search: "" };
     this.arrayholder = courses;
+    this.selected = {};
   }
   OnPressItem(item) {
-    console.log('Selected Item :', item);
+    console.log("Selected Item :", item);
+    this.setState({
+      selected: item,
+    });
+  }
+  ConfirmPress() {
+    var course = this.selected;
+    if (this.state.selected != {}) {
+      firebase
+        .database()
+        .ref("Users/")
+        .set({
+          course,
+        })
+        .then((data) => {
+          //success callback
+          console.log("data ", data);
+        })
+        .catch((error) => {
+          //error callback
+          console.log("error ", error);
+        });
+    }
   }
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function (item) {
-      const itemData = item.course_name ? item.course_name.toUpperCase() : ''.toUpperCase();
+      const itemData = item.course_name
+        ? item.course_name.toUpperCase()
+        : "".toUpperCase();
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -38,46 +72,37 @@ export default class CourseSearch extends React.Component {
 */
   render() {
     return (
-
-      <View >
+      <View>
         <SearchBar
-          onChangeText={text => this.SearchFilterFunction(text)}
-          onClear={text => this.SearchFilterFunction('')}
+          onChangeText={(text) => this.SearchFilterFunction(text)}
+          onClear={(text) => this.SearchFilterFunction("")}
           placeholder="Search For a Course"
           value={this.state.search}
         />
         <View style={styles.viewStyle}>
           <FlatList
             data={this.state.dataSource}
-
             renderItem={({ item }) => (
-              <TouchableHighlight
-                onPress={() => this.OnPressItem(item)}
-              >
+              <TouchableHighlight onPress={() => this.OnPressItem(item)}>
                 <Text style={styles.textStyle}>{item.course_name}</Text>
               </TouchableHighlight>
-
             )}
             enableEmptySections={true}
             style={{ marginTop: 10 }}
             keyExtractor={(item, index) => index.toString()}
           />
-          </View>
-          <View style={styles.button}>
-           
-        <Button title="Confirm"
-          
-          onPress={() => console.log("ran")}
-        />
-      </View>
+        </View>
+        <View style={styles.button}>
+          <Button title="Confirm" onPress={() => console.log("ran")} />
+        </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   viewStyle: {
-    backgroundColor: 'white',
-    maxHeight: '75%',
+    backgroundColor: "white",
+    maxHeight: "75%",
   },
   textStyle: {
     padding: 10,
