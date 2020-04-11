@@ -14,33 +14,42 @@ import * as firebase from "firebase";
 export default class CourseSearch extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { search: "" };
+    this.state = {
+      search: "",
+      selected: {},
+    };
     this.arrayholder = courses;
-    this.selected = {};
   }
   OnPressItem(item) {
     console.log("Selected Item :", item);
     this.setState({
       selected: item,
     });
+    //console.log(this.state.selected);
   }
   ConfirmPress() {
-    var course = this.selected;
+    console.log(this.state.selected);
+    console.log("/Users/" + firebase.auth().currentUser.uid + "/courses/");
     if (this.state.selected != {}) {
+      /*
       firebase
         .database()
-        .ref("Users/")
+        .ref("/Users/" + firebase.auth().currentUser.uid + "/courses/")
         .set({
-          course,
+          course_numbers: number,
         })
-        .then((data) => {
-          //success callback
-          console.log("data ", data);
+        .then((d) => console.log("Data updated." + d));
+*/
+      const newReference = firebase
+        .database()
+        .ref("/Users/" + firebase.auth().currentUser.uid + "/courses/")
+        .child(this.state.selected.course_number);
+
+      newReference
+        .set({
+          course: this.state.selected,
         })
-        .catch((error) => {
-          //error callback
-          console.log("error ", error);
-        });
+        .then(() => console.log("Data updated."));
     }
   }
   SearchFilterFunction(text) {
@@ -93,7 +102,7 @@ export default class CourseSearch extends React.Component {
           />
         </View>
         <View style={styles.button}>
-          <Button title="Confirm" onPress={() => console.log("ran")} />
+          <Button title="Confirm" onPress={() => this.ConfirmPress()} />
         </View>
       </View>
     );

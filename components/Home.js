@@ -14,6 +14,7 @@ export default class Home extends Component {
   componentDidMount() {
     const { email } = firebase.auth().currentUser;
     this.setState({ email });
+    //console.log(firebase.auth().currentUser.uid);
   }
 
   signOutUser = () => {
