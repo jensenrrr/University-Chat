@@ -10,6 +10,7 @@ export default class Home extends Component {
     displayName: "",
     classes: "",
     courses: [],
+    hasCourses: false,
   };
 
   componentDidMount() {
@@ -22,6 +23,11 @@ export default class Home extends Component {
       .once("value")
       .then((snapshot) => {
         console.log(snapshot.val().courses);
+        if (snapshot.val().courses != undefined) {
+          this.setState({
+            hasCourses: true,
+          });
+        }
         //let carray = [];
         //for (var i in snapshot.val().courses) carray.push(i.course);
         //console.log(carray);
@@ -29,11 +35,22 @@ export default class Home extends Component {
           courses: snapshot.val().courses,
         });
 
-        console.log(this.state.courses["Japanese Folklore"].course.course_name);
+        //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
+    console.log(Object.keys(this.state.courses).length);
   }
 
   ChatCreateFunction() {
+    firebase
+      .database()
+      .ref("/Chats/" + "JPT4502")
+      .set({
+        name: "Japanese Folklore",
+        code: "JPT",
+        number: "4502",
+      });
+
+    /*
     data.forEach((chat) => {
       firebase
         .database()
@@ -43,7 +60,7 @@ export default class Home extends Component {
           code: chat.course_code,
           number: chat.course_number,
         });
-    });
+    });*/
   }
   signOutUser = () => {
     firebase.auth().signOut();
@@ -59,29 +76,33 @@ export default class Home extends Component {
             onPress={() => navigation.navigate("Add")}
           />
         </div>
-        <div>
-          {Object.keys(this.state.courses).map((chat, index) => (
-            <div
-              key={
-                this.state.courses[chat].course.course_code +
-                this.state.courses[chat].course.course_number
-              }
-            >
-              {chat}
-              {this.state.courses[chat].course.course_code}
-              <Button
-                title="Go"
-                onPress={() =>
-                  navigation.navigate("ChatPage", {
-                    name: this.state.courses[chat].course.course_name,
-                    number: this.state.courses[chat].course.course_number,
-                    code: this.state.courses[chat].course.course_code,
-                  })
+        {this.state.hasCourses ? (
+          <div>
+            {Object.keys(this.state.courses).map((chat, index) => (
+              <div
+                key={
+                  this.state.courses[chat].course.course_code +
+                  this.state.courses[chat].course.course_number
                 }
-              />
-            </div>
-          ))}
-        </div>
+              >
+                {chat}
+                {this.state.courses[chat].course.course_code}
+                <Button
+                  title="Go"
+                  onPress={() =>
+                    navigation.navigate("ChatPage", {
+                      name: this.state.courses[chat].course.course_name,
+                      number: this.state.courses[chat].course.course_number,
+                      code: this.state.courses[chat].course.course_code,
+                    })
+                  }
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>No classes added.</div>
+        )}
         <Text style={{ fontSize: 16, fontWeight: "700" }}>
           Hello, {this.state.email}
         </Text>

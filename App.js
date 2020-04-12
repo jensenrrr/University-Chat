@@ -40,7 +40,7 @@ export default class App extends Component {
               <Stack.Screen
                 name="ChatPage"
                 component={ChatPage}
-                options={({ route }) => ({ title: route.params.chat })}
+                options={({ route }) => ({ title: route.params.name })}
               />
               <Stack.Screen name="ChatSelection" component={ChatSelection} />
               <Stack.Screen name="Add" component={Add} />
