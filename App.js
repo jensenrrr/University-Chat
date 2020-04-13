@@ -9,6 +9,9 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import ChatPage from "./components/ChatPage";
 import ChatSelection from "./components/ChatSelection";
+import Settings from "./components/Settings";
+import UpdateProfilePicture from "./components/UpdateProfilePicture";
+import UpdatePassword from "./components/UpdatePassword";
 import Add from "./components/Add";
 
 import { StyleSheet, Text, View } from "react-native";
@@ -44,6 +47,12 @@ export default class App extends Component {
               />
               <Stack.Screen name="ChatSelection" component={ChatSelection} />
               <Stack.Screen name="Add" component={Add} />
+              <Stack.Screen name="Settings" component={Settings} />
+              <Stack.Screen
+                name="Update Profile Picture"
+                component={UpdateProfilePicture}
+              />
+              <Stack.Screen name="Update Password" component={UpdatePassword} />
             </>
           ) : (
             <>

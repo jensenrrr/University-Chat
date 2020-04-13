@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text, Image } from "react-native";
 import * as firebase from "firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,7 +11,13 @@ export default class Home extends Component {
     classes: "",
     courses: [],
     hasCourses: false,
+    profilePicture: "",
   };
+
+  constructor(props) {
+    super(props);
+    this.updateProfilePicture = this.updateProfilePicture.bind(this);
+  }
 
   componentDidMount() {
     const { email } = firebase.auth().currentUser;
@@ -22,11 +28,14 @@ export default class Home extends Component {
       .ref("/Users/" + firebase.auth().currentUser.uid)
       .once("value")
       .then((snapshot) => {
-        console.log(snapshot.val().courses);
+        console.log(snapshot.val());
         if (snapshot.val().courses != undefined) {
           this.setState({
             hasCourses: true,
           });
+        }
+        if (snapshot.val().profilePicture != undefined) {
+          this.setState({ profilePicture: snapshot.val().profilePicture });
         }
         //let carray = [];
         //for (var i in snapshot.val().courses) carray.push(i.course);
@@ -38,7 +47,12 @@ export default class Home extends Component {
         //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
     console.log(Object.keys(this.state.courses).length);
+    console.log(this.state);
   }
+
+  updateProfilePicture = (url) => {
+    this.setState({ profilePicture: url });
+  };
 
   ChatCreateFunction() {
     firebase
@@ -70,23 +84,25 @@ export default class Home extends Component {
     const { navigation } = this.props;
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <div style={{ verticalAlign: top, alignItems: "left" }}>
+        <View style={{ verticalAlign: "top", alignItems: "left" }}>
           <Button
             title="Go to Add Chat"
             onPress={() => navigation.navigate("Add")}
           />
-        </div>
+        </View>
         {this.state.hasCourses ? (
-          <div>
+          <View>
             {Object.keys(this.state.courses).map((chat, index) => (
-              <div
+              <View
                 key={
                   this.state.courses[chat].course.course_code +
                   this.state.courses[chat].course.course_number
                 }
               >
-                {chat}
-                {this.state.courses[chat].course.course_code}
+                <Text>
+                  {chat}
+                  {this.state.courses[chat].course.course_code}
+                </Text>
                 <Button
                   title="Go"
                   onPress={() =>
@@ -97,15 +113,22 @@ export default class Home extends Component {
                     })
                   }
                 />
-              </div>
+              </View>
             ))}
-          </div>
+          </View>
         ) : (
-          <div>No classes added.</div>
+          <Text>No classes added.</Text>
         )}
-        <Text style={{ fontSize: 16, fontWeight: "700" }}>
-          Hello, {this.state.email}
-        </Text>
+        <View style={styles.userProfile}>
+          <Image
+            style={styles.userPicture}
+            source={{ uri: this.state.profilePicture }}
+          />
+          <Text style={{ fontSize: 16, fontWeight: "700" }}>
+            {this.state.email}
+          </Text>
+        </View>
+
         <Text>Home Screen</Text>
         <Button
           title="Go to Chat"
@@ -117,8 +140,28 @@ export default class Home extends Component {
           onPress={() => this.ChatCreateFunction()}
         />
         <Text>sssss</Text>
+        <Button
+          title="Settings"
+          onPress={() =>
+            navigation.navigate("Settings", {
+              email: this.state.email,
+              updateProfilePicture: this.updateProfilePicture,
+            })
+          }
+        />
+        <Text>ssss</Text>
         <Button title="Sign Out" onPress={() => this.signOutUser()} />
       </View>
     );
   }
 }
+
+const styles = {
+  userProfile: {},
+  userPicture: {
+    width: 70,
+    height: 70,
+    justifyContent: "center",
+    borderRadius: 50,
+  },
+};
