@@ -84,15 +84,25 @@ export default class Home extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View
+        style={{ flex: 1, alignItems: "center", backgroundColor: "#a29bfe" }}
+      >
         <View style={{ verticalAlign: "top", alignItems: "left" }}>
-          <Button
-            title="Go to Add Chat"
-            onPress={() => navigation.navigate("Add")}
-          />
+          <div style={{ marginTop: "10%" }}>
+            <Button
+              title="Add Chat"
+              color="green"
+              onPress={() => navigation.navigate("Add")}
+            />
+          </div>
         </View>
         {this.state.hasCourses ? (
-          <View>
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "center",
+            }}
+          >
             {Object.keys(this.state.courses).map((chat, index) => (
               <View
                 key={
@@ -100,20 +110,40 @@ export default class Home extends Component {
                   this.state.courses[chat].course.course_number
                 }
               >
-                <Text>
-                  {chat}
-                  {this.state.courses[chat].course.course_code}
-                </Text>
-                <Button
-                  title="Go"
-                  onPress={() =>
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "solid",
+                    width: "80%",
+                    borderRadius: "10%",
+                    marginTop: "5%",
+                    marginLeft: "10%",
+                    fontSize: "20px",
+                    textAlign: "center",
+                  }}
+                  onClick={() =>
                     navigation.navigate("ChatPage", {
                       name: this.state.courses[chat].course.course_name,
                       number: this.state.courses[chat].course.course_number,
                       code: this.state.courses[chat].course.course_code,
                     })
                   }
-                />
+                >
+                  <div style={{ display: "inline", justifyContent: "left" }}>
+                    <Text>{chat}</Text>
+                  </div>
+                  <div style={{ display: "inline", justifyContent: "right" }}>
+                    {() =>
+                      navigation.navigate("ChatPage", {
+                        name: this.state.courses[chat].course.course_name,
+                        number: this.state.courses[chat].course.course_number,
+                        code: this.state.courses[chat].course.course_code,
+                      })
+                    }
+                  </div>
+                </div>
               </View>
             ))}
           </View>
@@ -129,14 +159,7 @@ export default class Home extends Component {
             {this.state.email}
           </Text>
         </View>
-
-        <Text>Home Screen</Text>
-
-        <Button
-          title="Run Create Chat Script"
-          onPress={() => this.ChatCreateFunction()}
-        />
-        <Text>sssss</Text>
+        <div style={{ marginTop: "1%" }}></div>
         <Button
           title="Settings"
           onPress={() =>
@@ -146,7 +169,7 @@ export default class Home extends Component {
             })
           }
         />
-        <Text>ssss</Text>
+
         <Button title="Sign Out" onPress={() => this.signOutUser()} />
       </View>
     );

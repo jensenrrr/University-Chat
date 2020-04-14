@@ -32,13 +32,18 @@ export default class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator style={{ backgroundColor: "#a29bfe" }}>
           {this.state.isLoggedIn ? (
             <>
               <Stack.Screen
                 name="Home"
                 component={Home}
-                options={{ title: "Welcome" }}
+                options={{
+                  title: "Welcome",
+                  headerStyle: {
+                    backgroundColor: "#a29bfe",
+                  },
+                }}
               />
               <Stack.Screen
                 name="ChatPage"
@@ -69,7 +74,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#a29bfe",
     alignItems: "center",
     justifyContent: "center",
   },
