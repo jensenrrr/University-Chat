@@ -20,6 +20,9 @@ class RegisterForm extends Component {
 
   handleRegister = () => {
     const { email, password, firstName, lastName } = this.state;
+    // Default profile picture, user can update in settings
+    const profilePicture =
+      "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png";
     var courses = [];
     firebase
       .auth()
@@ -36,6 +39,7 @@ class RegisterForm extends Component {
             lastName,
             email,
             courses,
+            profilePicture,
           })
           .then((data) => {
             //success callback
