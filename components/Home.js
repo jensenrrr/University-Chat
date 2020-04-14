@@ -12,6 +12,7 @@ export default class Home extends Component {
     courses: [],
     hasCourses: false,
     profilePicture: "",
+    name: "",
   };
 
   constructor(props) {
@@ -36,6 +37,22 @@ export default class Home extends Component {
         }
         if (snapshot.val().profilePicture != undefined) {
           this.setState({ profilePicture: snapshot.val().profilePicture });
+        } else {
+          this.setState({
+            profilePicture: null,
+          });
+        }
+        if (
+          snapshot.val().firstName != undefined &&
+          snapshot.val().lastName != undefined
+        ) {
+          this.setState({
+            name:
+              snapshot.val().firstName +
+              " " +
+              snapshot.val().lastName.charAt(0) +
+              ".",
+          });
         }
         //let carray = [];
         //for (var i in snapshot.val().courses) carray.push(i.course);
@@ -128,20 +145,13 @@ export default class Home extends Component {
                       name: this.state.courses[chat].course.course_name,
                       number: this.state.courses[chat].course.course_number,
                       code: this.state.courses[chat].course.course_code,
+                      avatar: this.state.profilePicture,
+                      username: this.state.name,
                     })
                   }
                 >
                   <div style={{ display: "inline", justifyContent: "left" }}>
                     <Text>{chat}</Text>
-                  </div>
-                  <div style={{ display: "inline", justifyContent: "right" }}>
-                    {() =>
-                      navigation.navigate("ChatPage", {
-                        name: this.state.courses[chat].course.course_name,
-                        number: this.state.courses[chat].course.course_number,
-                        code: this.state.courses[chat].course.course_code,
-                      })
-                    }
                   </div>
                 </div>
               </View>
@@ -159,6 +169,11 @@ export default class Home extends Component {
             {this.state.email}
           </Text>
         </View>
+        <div style={{ marginTop: "1%" }}></div>
+        <Button
+          title="Run Create Chat Script"
+          onPress={() => this.ChatCreateFunction()}
+        />
         <div style={{ marginTop: "1%" }}></div>
         <Button
           title="Settings"

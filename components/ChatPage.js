@@ -12,6 +12,7 @@ class ChatPage extends React.Component {
     const { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
     const timestamp = new Date(numberStamp);
+
     const message = {
       _id,
       timestamp,
@@ -69,6 +70,7 @@ class ChatPage extends React.Component {
     //var messages = [];
 
     for (let i = 0; i < messages.length; i++) {
+      console.log(messages[i]);
       const { text, user } = messages[i];
       const message = {
         text,
@@ -96,9 +98,13 @@ class ChatPage extends React.Component {
     return (
       <GiftedChat
         messages={this.state.messages}
+        renderUsernameOnMessage={true}
+        renderAvatarOnTop={true}
         onSend={(messages) => this.onSend(messages)}
         user={{
           _id: firebase.auth().currentUser.uid,
+          avatar: this.props.route.params.avatar,
+          name: this.props.route.params.username,
         }}
       />
     );
