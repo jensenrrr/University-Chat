@@ -41,6 +41,7 @@ export default class Home extends Component {
   }
 
   ChatCreateFunction() {
+    /*
     firebase
       .database()
       .ref("/Chats/" + "JPT4502")
@@ -49,8 +50,8 @@ export default class Home extends Component {
         code: "JPT",
         number: "4502",
       });
+*/
 
-    /*
     data.forEach((chat) => {
       firebase
         .database()
@@ -60,7 +61,7 @@ export default class Home extends Component {
           code: chat.course_code,
           number: chat.course_number,
         });
-    });*/
+    });
   }
   signOutUser = () => {
     firebase.auth().signOut();
@@ -107,11 +108,7 @@ export default class Home extends Component {
           Hello, {this.state.email}
         </Text>
         <Text>Home Screen</Text>
-        <Button
-          title="Go to Chat"
-          onPress={() => navigation.navigate("ChatSelection")}
-        />
-        <Text>sssss</Text>
+
         <Button
           title="Run Create Chat Script"
           onPress={() => this.ChatCreateFunction()}
