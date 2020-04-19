@@ -81,6 +81,8 @@ class ChatPage extends React.Component {
       myid: firebase.auth().currentUser.uid,
       theirid: user._id,
       name: user.name,
+      avatar: this.props.route.params.avatar,
+      username: this.props.route.params.username,
     });
   }
   onPressActionButton() {
