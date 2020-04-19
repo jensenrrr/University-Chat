@@ -13,7 +13,7 @@ import Settings from "./components/Settings";
 import UpdateProfilePicture from "./components/UpdateProfilePicture";
 import UpdatePassword from "./components/UpdatePassword";
 import Add from "./components/Add";
-
+import DM from "./components/DM";
 import { StyleSheet, Text, View } from "react-native";
 
 const Stack = createStackNavigator();
@@ -48,6 +48,11 @@ export default class App extends Component {
               <Stack.Screen
                 name="ChatPage"
                 component={ChatPage}
+                options={({ route }) => ({ title: route.params.name })}
+              />
+              <Stack.Screen
+                name="DirectMessage"
+                component={DM}
                 options={({ route }) => ({ title: route.params.name })}
               />
               <Stack.Screen name="ChatSelection" component={ChatSelection} />
