@@ -23,13 +23,14 @@ class ChatPage extends React.Component {
     //this.renderFooter = this.renderFooter.bind(this);
   }
   parse = (snapshot) => {
+    console.log(snapshot.val());
     const { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
-    const timestamp = new Date(numberStamp);
+    const createdAt = new Date(numberStamp);
 
     const message = {
       _id,
-      timestamp,
+      createdAt,
       text,
       user,
     };
@@ -71,7 +72,9 @@ class ChatPage extends React.Component {
   }
   onPressAvatar(user) {
     console.log("go to dm for" + user.name);
-    navigation.navigate("DirectMessages", {
+    const { navigation } = this.props;
+
+    navigation.navigate("DirectMessage", {
       myid: firebase.auth().currentUser.uid,
       theirid: user._id,
       name: user.name,
@@ -112,6 +115,7 @@ class ChatPage extends React.Component {
         user,
         timestamp: this.timestamp,
       };
+      console.log(message);
       firebase
         .database()
         .ref(
