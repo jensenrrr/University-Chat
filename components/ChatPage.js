@@ -3,8 +3,6 @@ import { View, Text } from "react-native";
 import { GiftedChat, Actions } from "react-native-gifted-chat"; // 0.3.0
 import * as firebase from "firebase";
 import CustomActions from "./CustomActions";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 
 class ChatPage extends React.Component {
   constructor(props) {
@@ -19,7 +17,6 @@ class ChatPage extends React.Component {
     this.onSend = this.onSend.bind(this);
     this.onPressAvatar = this.onPressAvatar.bind(this);
     this.onLongPress = this.onLongPress.bind(this);
-
     //this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     //this.renderBubble = this.renderBubble.bind(this);
@@ -61,132 +58,51 @@ class ChatPage extends React.Component {
     );
   }
   renderCustomActions(props) {
-    //return <CustomActions {...props} />;
-    console.log("custom actions");
-    /*
     const options = {
       "Action 1": (props) => {
-        firebase
-          .database()
-          .ref(
-            "Chats/" +
-              this.props.route.params.code +
-              this.props.route.params.number +
-              "/PinnedMessages/"
-          )
-          .push(message);
-      },
-      "Action 2": (props) => {
-        alert("option 2");
+        alert("option 1");
       },
       "Action 2": (props) => {
         alert("option 2");
       },
       Cancel: () => {},
     };
-    return <Actions {...props} options={options} />;*/
+    //return <Actions {...props} options={options} />;
   }
   onPressAvatar(user) {
-    const { navigation } = this.props;
-
     console.log("go to dm for" + user.name);
-    navigation.navigate("DirectMessage", {
+    navigation.navigate("DirectMessages", {
       myid: firebase.auth().currentUser.uid,
       theirid: user._id,
       name: user.name,
-      avatar: this.props.route.params.avatar,
-      username: this.props.route.params.username,
     });
   }
-  onLongPress(context, message) {
-    console.log("context: " + JSON.stringify(context));
-    console.log("message " + JSON.stringify(message));
-
-    if (message.text) {
-      //const options = ["Copy Text", "Pin Message", "Cancel"];
-      //const cancelButtonIndex = options.length - 1;
-      const options = {
-        "Action 1": (props) => {
-          firebase
-            .database()
-            .ref(
-              "Chats/" +
-                this.props.route.params.code +
-                this.props.route.params.number +
-                "/PinnedMessages/"
-            )
-            .push(message);
-        },
-        "Action 2": (props) => {
-          alert("option 2");
-        },
-        "Action 2": (props) => {
-          alert("option 2");
-        },
-        Cancel: () => {},
-      };
-      console.log("actoins");
-      return <Actions {...this.props} options={options} />;
-      this.context.actionSheet().showActionSheetWithOptions(
-        {
-          options,
-          cancelButtonIndex,
-        },
-        (buttonIndex) => {
-          switch (buttonIndex) {
-            case 0:
-              Clipboard.setString(message.text);
-              break;
-            case 2:
-              firebase
-                .database()
-                .ref(
-                  "Chats/" +
-                    this.props.route.params.code +
-                    this.props.route.params.number +
-                    "/PinnedMessages/"
-                )
-                .push(message);
-              break;
-          }
-        }
-      );
-    }
+  renderActions() {
+    console.log("meme");
   }
   onPressActionButton() {
     console.log("action button");
-    // if (this.props.onLongPress) {
-    //  this.props.onLongPress(this.context, this.props.currentMessage);
-    // } else {
-    if (this.props.currentMessage.text) {
-      const options = ["Copy Text", "Pin Message", "Cancel"];
-      const cancelButtonIndex = options.length - 1;
-      this.context.actionSheet().showActionSheetWithOptions(
-        {
-          options,
-          cancelButtonIndex,
-        },
-        (buttonIndex) => {
-          switch (buttonIndex) {
-            case 0:
-              Clipboard.setString(this.props.currentMessage.text);
-              break;
-            case 2:
-              firebase
-                .database()
-                .ref(
-                  "Chats/" +
-                    this.props.route.params.code +
-                    this.props.route.params.number +
-                    "/PinnedMessages/"
-                )
-                .push(message);
-              break;
+    if (this.props.onLongPress) {
+      this.props.onLongPress(this.context, this.props.currentMessage);
+    } else {
+      if (this.props.currentMessage.text) {
+        const options = ["Copy Text", "Cancel"];
+        const cancelButtonIndex = options.length - 1;
+        this.context.actionSheet().showActionSheetWithOptions(
+          {
+            options,
+            cancelButtonIndex,
+          },
+          (buttonIndex) => {
+            switch (buttonIndex) {
+              case 0:
+                Clipboard.setString(this.props.currentMessage.text);
+                break;
+            }
           }
-        }
-      );
+        );
+      }
     }
-    // }
   }
   onSend(messages) {
     for (let i = 0; i < messages.length; i++) {
@@ -207,6 +123,37 @@ class ChatPage extends React.Component {
         .push(message);
     }
   }
+  onLongPress(context, message) {
+    console.log(context, message);
+    if (message.text) {
+      const options = ["Copy Text", "Pin Message", "Cancel"];
+      const cancelButtonIndex = options.length - 1;
+      context.actionSheet().showActionSheetWithOptions(
+        {
+          options,
+          cancelButtonIndex,
+        },
+        (buttonIndex) => {
+          switch (buttonIndex) {
+            case 0:
+              Clipboard.setString(message.text);
+              break;
+            case 1:
+              firebase
+                .database()
+                .ref(
+                  "Chats/" +
+                    this.props.route.params.code +
+                    this.props.route.params.number +
+                    "/PinnedMessages/"
+                )
+                .push(message);
+              break;
+          }
+        }
+      );
+    }
+  }
   render() {
     return (
       <GiftedChat
@@ -221,8 +168,7 @@ class ChatPage extends React.Component {
         }}
         renderActions={this.renderCustomActions}
         onPressAvatar={(user) => this.onPressAvatar(user)}
-        onPressActionButton={this.onPressActionButton}
-        onLongPress={(context, message) => this.onLongPress(context, message)}
+        onLongPress={this.onLongPress}
       />
     );
   }
