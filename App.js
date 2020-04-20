@@ -15,7 +15,8 @@ import UpdatePassword from "./components/UpdatePassword";
 import Add from "./components/Add";
 import DM from "./components/DM";
 import { StyleSheet, Text, View } from "react-native";
-import PinModal from "./components/PinModal";
+import Pins from "./components/Pins";
+import ChatHeader from "./components/ChatHeader";
 
 const Stack = createStackNavigator();
 
@@ -53,7 +54,20 @@ export default class App extends Component {
               <Stack.Screen
                 name="ChatPage"
                 component={ChatPage}
-                options={({ route }) => ({ title: route.params.name })}
+                // options={({ route }) => ({ title: route.params.name })}
+                options={({ navigation, route }) => ({
+                  headerTitle: () => {
+                    console.log(route);
+                    return (
+                      <ChatHeader
+                        code={route.params.code}
+                        number={route.params.number}
+                        name={route.params.name}
+                        navigation={navigation}
+                      />
+                    );
+                  },
+                })}
                 /*
                 options={({ navigation, route }) => ({
                   headerTitle: () => (
@@ -68,6 +82,11 @@ export default class App extends Component {
               <Stack.Screen
                 name="DirectMessage"
                 component={DM}
+                options={({ route }) => ({ title: route.params.name })}
+              />
+              <Stack.Screen
+                name="Pins"
+                component={Pins}
                 options={({ route }) => ({ title: route.params.name })}
               />
               <Stack.Screen name="ChatSelection" component={ChatSelection} />
