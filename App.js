@@ -19,7 +19,15 @@ import Pins from "./components/Pins";
 import ChatHeader from "./components/ChatHeader";
 
 const Stack = createStackNavigator();
-
+const MyTheme = {
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(242, 242, 242)',
+    card: '#C09BD8',
+    text: 'rgb(242, 242, 242)',
+    border: 'transparent',
+  },
+};
 export default class App extends Component {
   state = {
     isLoggedIn: false,
@@ -35,10 +43,12 @@ export default class App extends Component {
     return;
   }
 
+  
+
   render() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator style={{ backgroundColor: "#a29bfe" }}>
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator >
           {this.state.isLoggedIn ? (
             <>
               <Stack.Screen
@@ -46,9 +56,7 @@ export default class App extends Component {
                 component={Home}
                 options={{
                   title: "Welcome",
-                  headerStyle: {
-                    backgroundColor: "#a29bfe",
-                  },
+                 
                 }}
               />
               <Stack.Screen

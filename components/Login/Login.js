@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text, KeyboardAvoidingView } from "react-native";
+import { Image, StyleSheet, View, Text, KeyboardAvoidingView } from "react-native";
 import LoginForm from "./LoginForm";
+
 
 function Login({ navigation }) {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View>
+        <Image source = {'./UniversityChat.png'} style ={styles.logo} />
         <Text style={styles.title}>University Chat</Text>
         <LoginForm navigation={navigation} />
       </View>
@@ -14,16 +16,24 @@ function Login({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#fff",
+  },
+  logo: {
+    flex: 1,
+    width: "100%",
+    marginTop: "10%",
+    resizeMode: "contain",
+    alignSelf: "center"
   },
   title: {
-    color: "#FFF",
-    fontSize: 32,
-    fontWeight: "700",
+    color: "#9F84BD",
+    fontSize: 20,
+    fontWeight: "100",
     alignSelf: "center",
-    paddingTop: 150,
+    
   },
 });
 

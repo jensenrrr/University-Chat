@@ -65,8 +65,8 @@ class RegisterForm extends Component {
         <View style={styles.form}>
           <View style={styles.inputView}>
             <TextInput
-              placeholder="first name"
-              placeholderTextColor="rgba(255, 255, 255, 0.7)"
+              placeholder="First Name"
+              
               returnKeyType="next"
               onSubmitEditing={() => this.lastNameInput.focus()}
               onChangeText={(firstName) => this.setState({ firstName })}
@@ -77,8 +77,8 @@ class RegisterForm extends Component {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              placeholder="last name"
-              placeholderTextColor="rgba(255, 255, 255, 0.7)"
+              placeholder="Last Name"
+              
               returnKeyType="next"
               onSubmitEditing={() => this.emailInput.focus()}
               onChangeText={(lastName) => this.setState({ lastName })}
@@ -92,8 +92,8 @@ class RegisterForm extends Component {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              placeholder="email"
-              placeholderTextColor="rgba(255, 255, 255, 0.7)"
+              placeholder="Email"
+             
               returnKeyType="next"
               onSubmitEditing={() => this.passwordInput.focus()}
               onChangeText={(email) => this.setState({ email })}
@@ -109,8 +109,8 @@ class RegisterForm extends Component {
           </View>
           <View style={styles.inputView}>
             <TextInput
-              placeholder="password"
-              placeholderTextColor="rgba(255, 255, 255, 0.7)"
+              placeholder="Password"
+              
               secureTextEntry
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
@@ -131,7 +131,7 @@ class RegisterForm extends Component {
             style={styles.logInText}
             onPress={() => navigation.goBack()}
           >
-            <Text style={{ color: "#FFF" }}>
+            <Text style={{ color: "#9F84BD" }}>
               Already have an account? Log In!
             </Text>
           </TouchableOpacity>
@@ -144,37 +144,29 @@ class RegisterForm extends Component {
 export default RegisterForm;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 100,
-  },
   form: {
     marginHorizontal: 30,
   },
   input: {
     height: 40,
-    marginBottom: 30,
-    borderRadius: 40,
-    color: "#FFF",
-    paddingHorizontal: 15,
+    marginBottom: 20,
+    borderColor: "#9F84BD",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  inputView: {
-    backgroundColor: "rgba(108, 92, 231,0.6)",
-    height: 40,
-    borderRadius: 40,
-    marginBottom: 30,
-  },
+ 
   buttonContainer: {
-    backgroundColor: "#6c5ce7",
+    backgroundColor: "#C09BD8",
     alignItems: "center",
     justifyContent: "center",
     height: 40,
     paddingVertical: 10,
-    borderRadius: 40,
+    borderRadius: 10,
   },
   buttonText: {
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
+    fontSize:20,
   },
   logInText: {
     height: 40,
@@ -182,7 +174,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   error: {
-    color: "#fff",
+    color: "black",
     fontSize: 14,
     fontWeight: "500",
     textAlign: "center",

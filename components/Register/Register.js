@@ -15,7 +15,7 @@ function Register({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#fff",
   },
 });
 

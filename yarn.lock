@@ -1327,6 +1327,11 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@react-native-community/cameraroll@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/cameraroll/-/cameraroll-1.5.2.tgz#6db66bd39816ef19051e024e44f31f4a8de5b3c1"
+  integrity sha512-xrkrmcI5V8IzWoGQOqycs2YZRmGqASqZMDkjOzFFg6bCy95+OMquPnCmGdaUx1ONO1x6tsQSCv87xM/oL+9m/A==
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -5018,12 +5023,19 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-native-atoz-listview@^0.0.7:
+react-native-atoz-listview@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/react-native-atoz-listview/-/react-native-atoz-listview-0.0.7.tgz#ae1d8ac11a224aeacdf3b6f1c938b030c92788cd"
   integrity sha1-rh2KwRoiSurN87bxyTiwMMkniM0=
   dependencies:
     merge "^1.2.0"
+
+react-native-camera-roll-picker@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-2.0.0.tgz#f5f328a85749e1f11b16fe29a4e44ef46fffede4"
+  integrity sha512-Ou3gybEwmLXQkouaBZPJ+cfSbAcAD0Lex9/kRR4orFWROal+VipVO75YW7+5Mo2SgJL24i0TG/dqUfOt2WW7+w==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-native-communications@2.2.1:
   version "2.2.1"
@@ -5080,6 +5092,11 @@ react-native-lightbox@^0.8.1:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-nav@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-nav/-/react-native-nav-2.0.2.tgz#280be2c9b2ecb5c10e57f8b1833aa1ac9c5c1101"
+  integrity sha512-t5BOIMRU5vMzMOtuUUuYxd59ipwRe8v1H7NTk8Z0elvBf8hCwYSsnRFDIYk35k/ZbbKZcODmd74P4x1zLTsDyA==
+
 "react-native-parsed-text@https://github.com/EvanBacon/react-native-parsed-text.git":
   version "0.0.22"
   resolved "https://github.com/EvanBacon/react-native-parsed-text.git#c909f64ee437796fd1b047edd73146fc89edb796"
@@ -5113,7 +5130,7 @@ react-native-screens@~2.2.0:
   dependencies:
     debounce "^1.2.0"
 
-react-native-search-box@^0.0.19:
+react-native-search-box@0.0.19:
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/react-native-search-box/-/react-native-search-box-0.0.19.tgz#19a7baef309341a507bee89802df90218d4cc0a4"
   integrity sha512-tbL5URnckRqhewRkkskHkgDX20HZQLxaHTaqiIS9T6eKETao6xVprduBEWaSLLwGmR/+JtXiMMG6V5MYWYhx9w==
