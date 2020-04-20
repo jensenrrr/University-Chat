@@ -10,6 +10,7 @@ export default class Home extends Component {
     displayName: "",
     classes: "",
     courses: [],
+    DMs: [],
     hasCourses: false,
     profilePicture: "",
     name: "",
@@ -60,11 +61,22 @@ export default class Home extends Component {
         this.setState({
           courses: snapshot.val().courses,
         });
+        this.setState({
+          DMs: snapshot.val().DMs,
+        });
 
         //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
     console.log(Object.keys(this.state.courses).length);
     console.log(this.state);
+    /*
+    firebase
+      .database()
+      .ref("/Users/" + firebase.auth().currentUser.uid)
+      .once("value")
+      .then((snapshot) => {
+        console.log(snapshot.val());
+      });*/
   }
 
   updateProfilePicture = (url) => {
@@ -169,7 +181,42 @@ export default class Home extends Component {
             {this.state.email}
           </Text>
         </View>
+        <div style={{ marginTop: "1%" }}>
+          <Text>Direct Messages</Text>
+        </div>
+        {Object.keys(this.state.DMs).map((chat, index) => (
+          <View key={chat}>
+            <div
+              style={{
+                backgroundColor: "white",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "solid",
+                width: "80%",
+                borderRadius: "10%",
+                marginTop: "5%",
+                marginLeft: "10%",
+                fontSize: "20px",
+                textAlign: "center",
+              }}
+              onClick={() =>
+                navigation.navigate("DirectMessage", {
+                  name: this.state.DMs[chat].name,
+                  theirid: chat,
+                  avatar: this.state.profilePicture,
+                  ourname: this.state.name,
+                  myid: firebase.auth().currentUser.uid,
+                })
+              }
+            >
+              <div style={{ display: "inline", justifyContent: "left" }}>
+                <Text>{this.state.DMs[chat].name}</Text>
+              </div>
+            </div>
+          </View>
+        ))}
         <div style={{ marginTop: "1%" }}></div>
+
         <Button
           title="Run Create Chat Script"
           onPress={() => this.ChatCreateFunction()}

@@ -39,13 +39,38 @@ class DM extends React.Component {
       .on("child_added", (snapshot) => callback(this.parse(snapshot)));
 
   componentDidMount() {
+    console.log(this.props);
     this.on((message) =>
       this.setState((previousState) => ({
         messages: GiftedChat.append(previousState.messages, message),
       }))
     );
+    const hello = firebase
+      .database()
+      .ref(
+        "Users/" +
+          this.props.route.params.myid +
+          "/DMs/" +
+          this.props.route.params.theirid
+      )
+      .update({ name: this.props.route.params.name });
+
+    hello.then(() => {
+      firebase
+        .database()
+        .ref(
+          "Users/" +
+            this.props.route.params.theirid +
+            "/DMs/" +
+            this.props.route.params.myid
+        )
+        .update({ name: this.props.route.params.ourname });
+    });
   }
+
   onSend(messages) {
+    var meme = [this.props.route.params.myid, this.props.route.params.theirid];
+    meme.sort();
     console.log(messages);
     for (let i = 0; i < messages.length; i++) {
       console.log(messages[i]);
@@ -55,7 +80,7 @@ class DM extends React.Component {
         user,
         timestamp: this.timestamp,
       };
-      firebase
+      const hello = firebase
         .database()
         .ref(
           "Users/" +
@@ -66,15 +91,18 @@ class DM extends React.Component {
         )
         .push(message);
 
-      firebase
-        .database()
-        .ref(
-          "Users/" +
-            this.props.route.params.myid +
-            "/DMs/" +
-            this.props.route.params.theirid
-        )
-        .update({ name: message.user.name });
+      hello.then(() => {
+        firebase
+          .database()
+          .ref(
+            "Users/" +
+              this.props.route.params.theirid +
+              "/DMs/" +
+              this.props.route.params.myid +
+              "/Messages/"
+          )
+          .push(message);
+      });
     }
   }
   render() {
@@ -86,8 +114,8 @@ class DM extends React.Component {
         onSend={(messages) => this.onSend(messages)}
         user={{
           _id: firebase.auth().currentUser.uid,
-          avatar: this.props.avatar,
-          name: this.props.username,
+          avatar: this.props.route.params.avatar,
+          name: this.props.route.params.ourname,
         }}
       />
     );

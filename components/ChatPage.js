@@ -78,6 +78,8 @@ class ChatPage extends React.Component {
       myid: firebase.auth().currentUser.uid,
       theirid: user._id,
       name: user.name,
+      ourname: this.props.route.params.username,
+      avatar: this.props.route.params.avatar,
     });
   }
   renderActions() {
@@ -163,7 +165,7 @@ class ChatPage extends React.Component {
       <GiftedChat
         messages={this.state.messages}
         renderUsernameOnMessage={true}
-        renderAvatarOnTop={true}
+        //renderAvatarOnTop={true}
         onSend={(messages) => this.onSend(messages)}
         user={{
           _id: firebase.auth().currentUser.uid,
