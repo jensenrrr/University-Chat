@@ -59,18 +59,6 @@ export default class App extends Component {
                 component={Home}
                 options={{
                   headerTitle: "Welcome",
-                 
-                  headerRight: () => (
-                    <TouchableOpacity
-                
-                      style={{marginRight:10, backgroundColor:"#9F84BD", height:40, width:80, borderRadius:5, alignItems: "center",
-                      justifyContent: "center",}}
-                      onPress={() => this.signOutUser()}
-                    >
-                       
-                      <Text style={{color:"#fff"}}>Sign out</Text>
-                      </TouchableOpacity>
-                  ),
                 }}
               />
               <Stack.Screen
