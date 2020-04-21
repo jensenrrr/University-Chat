@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as firebase from "firebase";
-
+import { Icon } from 'react-native-elements';
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -14,9 +14,10 @@ import UpdateProfilePicture from "./components/UpdateProfilePicture";
 import UpdatePassword from "./components/UpdatePassword";
 import Add from "./components/Add";
 import DM from "./components/DM";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Button, Text, View } from "react-native";
 import Pins from "./components/Pins";
 import ChatHeader from "./components/ChatHeader";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
 const MyTheme = {
@@ -43,7 +44,9 @@ export default class App extends Component {
     return;
   }
 
-  
+  signOutUser = () => {
+    firebase.auth().signOut();
+  };
 
   render() {
     return (
@@ -55,8 +58,19 @@ export default class App extends Component {
                 name="Home"
                 component={Home}
                 options={{
-                  title: "Welcome",
+                  headerTitle: "Welcome",
                  
+                  headerRight: () => (
+                    <TouchableOpacity
+                
+                      style={{marginRight:10, backgroundColor:"#9F84BD", height:40, width:80, borderRadius:5, alignItems: "center",
+                      justifyContent: "center",}}
+                      onPress={() => this.signOutUser()}
+                    >
+                       
+                      <Text style={{color:"#fff"}}>Sign out</Text>
+                      </TouchableOpacity>
+                  ),
                 }}
               />
               <Stack.Screen

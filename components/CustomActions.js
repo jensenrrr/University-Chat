@@ -11,6 +11,7 @@ import {
 
 import NavBar, { NavButton, NavButtonText, NavTitle } from "react-native-nav";
 
+
 export default class CustomActions extends React.Component {
   constructor(props) {
     super(props);

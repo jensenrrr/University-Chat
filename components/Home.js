@@ -4,6 +4,8 @@ import * as firebase from "firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import data from "./data/courses.json";
+import { Icon, Header } from 'react-native-elements';
+
 export default class Home extends Component {
   state = {
     email: "",
@@ -14,6 +16,7 @@ export default class Home extends Component {
     hasCourses: false,
     profilePicture: "",
     name: "",
+    errorMessage: null,
   };
 
   constructor(props) {
@@ -29,6 +32,7 @@ export default class Home extends Component {
       .database()
       .ref("/Users/" + firebase.auth().currentUser.uid)
       .once("value")
+      .catch((error) => this.setState({ errorMessage: error.message }))
       .then((snapshot) => {
         console.log(snapshot.val());
         if (snapshot.val().courses != undefined) {
@@ -69,6 +73,7 @@ export default class Home extends Component {
       });
     console.log(Object.keys(this.state.courses).length);
     console.log(this.state);
+
     /*
     firebase
       .database()
@@ -103,7 +108,8 @@ export default class Home extends Component {
           name: chat.course_name,
           code: chat.course_code,
           number: chat.course_number,
-        });
+        })
+        .catch((error) => this.setState({ errorMessage: error.message }));
     });
   }
   signOutUser = () => {
@@ -113,25 +119,51 @@ export default class Home extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View
-        style={{ flex: 1, alignItems: "center", backgroundColor: "#fff" }}
-      >
-        <View style={{ verticalAlign: "top", alignItems: "left" }}>
 
-            <TouchableOpacity 
-              style={styles.buttonContainer}
-              onPress={() => navigation.navigate("Add")}
-            >
+      <View
+        style={{ flex: 1, backgroundColor: "#fff" }}
+      >
+        <Header
+
+          leftComponent={<TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.ChatCreateFunction()}
+          >
+            <Icon name="menu" color="#fff" /></TouchableOpacity>}
+          centerComponent={<TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => navigation.navigate("Add")}
+          >
             <Text style={styles.buttonText}> Add Chat </Text></TouchableOpacity>
+
+          }
+          rightComponent={<TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() =>
+              navigation.navigate("Settings", {
+                email: this.state.email,
+                updateProfilePicture: this.updateProfilePicture,
+              })
+            }
+          >
+            <Icon name="settings" color="#fff" /></TouchableOpacity>}
+          containerStyle={{
+            backgroundColor: '#9F84BD',
+          }}
+        />
+        <View style={{ verticalAlign: "top", alignItems: "center" }}>
+
 
         </View>
         {this.state.hasCourses ? (
+          
           <View
             style={{
               width: "100%",
               justifyContent: "center",
             }}
           >
+            <Text style={{justifyContent:"center", color:"#9F84BD",  fontWeight: "600", marginTop:"1%", marginBottom:"1%", textAlign:"center"}}>Course Chats</Text>
             {Object.keys(this.state.courses).map((chat, index) => (
               <View
                 key={
@@ -139,19 +171,8 @@ export default class Home extends Component {
                   this.state.courses[chat].course.course_number
                 }
               >
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "solid",
-                    width: "80%",
-                    borderRadius: "10%",
-                    marginTop: "5%",
-                    marginLeft: "10%",
-                    fontSize: "20px",
-                    textAlign: "center",
-                  }}
+                <View
+                  style={styles.courseContainer}
                   onClick={() =>
                     navigation.navigate("ChatPage", {
                       name: this.state.courses[chat].course.course_name,
@@ -162,43 +183,31 @@ export default class Home extends Component {
                     })
                   }
                 >
-                  <div style={{ display: "inline", justifyContent: "left" }}>
-                    <Text>{chat}</Text>
-                  </div>
-                </div>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{
+                      height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
+                      justifyContent: "center", color: "#fff", marginBottom: "2%", marginRight: "1%", marginLeft: "1%"
+                    }}>
+                      <Text style={{ color: "#fff", fontWeight: "700" }}>{this.state.courses[chat].course.course_code}</Text>
+                    </View>
+                    <Text style={{ alignText: "center" }}>{this.state.courses[chat].course.course_code}{this.state.courses[chat].course.course_number} - {chat}</Text>
+
+                  </View>
+                </View>
               </View>
             ))}
           </View>
         ) : (
-          <Text>No classes added.</Text>
-        )}
+            <Text>No classes added.</Text>
+          )}
         <View style={styles.userProfile}>
-          <Image
-            style={styles.userPicture}
-            source={{ uri: this.state.profilePicture }}
-          />
-          <Text style={{ fontSize: 16, fontWeight: "700" }}>
-            {this.state.email}
-          </Text>
         </View>
-        <div style={{ marginTop: "1%" }}>
-          <Text>Direct Messages</Text>
-        </div>
+        <View>
+          <Text style={{justifyContent:"center", color:"#9F84BD",  fontWeight: "600", marginTop:"1%", marginBottom:"1%", textAlign:"center"}}>Direct Messages</Text>
+        </View>
         {Object.keys(this.state.DMs).map((chat, index) => (
           <View key={chat}>
-            <div
-              style={{
-                backgroundColor: "white",
-                alignItems: "center",
-                justifyContent: "center",
-                border: "solid",
-                width: "80%",
-                borderRadius: "10%",
-                marginTop: "5%",
-                marginLeft: "10%",
-                fontSize: "20px",
-                textAlign: "center",
-              }}
+            <View
               onClick={() =>
                 navigation.navigate("DirectMessage", {
                   name: this.state.DMs[chat].name,
@@ -209,30 +218,20 @@ export default class Home extends Component {
                 })
               }
             >
-              <div style={{ display: "inline", justifyContent: "left" }}>
-                <Text>{this.state.DMs[chat].name}</Text>
-              </div>
-            </div>
+    <View style={{ flexDirection: "row" }}>
+                    <View style={{
+                      height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
+                      justifyContent: "center", color: "#fff", marginBottom: "2%", marginRight: "1%", marginLeft: "1%"
+                    }}>
+                      <Text style={{ color: "#fff", fontWeight: "700" }}>{this.state.DMs[chat].name[0]}</Text>
+                    </View>
+                    <Text style={{ alignText: "center" }}>{this.state.DMs[chat].name}</Text>
+
+                  </View>
+            </View>
           </View>
         ))}
-        <div style={{ marginTop: "1%" }}></div>
-
-        <Button
-          title="Run Create Chat Script"
-          onPress={() => this.ChatCreateFunction()}
-        />
-        <div style={{ marginTop: "1%" }}></div>
-        <Button
-          title="Settings"
-          onPress={() =>
-            navigation.navigate("Settings", {
-              email: this.state.email,
-              updateProfilePicture: this.updateProfilePicture,
-            })
-          }
-        />
-
-        <Button title="Sign Out" onPress={() => this.signOutUser()} />
+        <View style={{ marginTop: "1%" }}></View>
       </View>
     );
   }
@@ -247,15 +246,20 @@ const styles = {
     borderRadius: 50,
   },
   buttonContainer: {
-    backgroundColor: "#9F84BD",
     alignItems: "center",
     justifyContent: "center",
-    width: 2000,
-   height:50,
   },
   buttonText: {
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
+  },
+  courseContainer: {
+
+    fontWeight: "500",
+    borderColor: "#9F84BD",
+    borderBottomWidth: 2,
+    color: "#9F84BD",
+    marginTop: '1%'
   },
 };
