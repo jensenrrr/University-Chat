@@ -119,29 +119,23 @@ export default class Home extends Component {
     firebase.auth().signOut();
   };
 
-  goToSettings = () => {
-    this.props.navigate("Settings", {
-      email: this.state.email,
-      name: this.state.name,
-      updateProfilePicture: this.updateProfilePicture,
-    })
-  };
+
   // justifyContent: "center"
   render() {
     const { navigation } = this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
-     
         <Header
-        rightComponent={ <TouchableOpacity
-                
-          style={{marginRight:0, backgroundColor:"#9F84BD", height:40, width:60, borderRadius:5, alignItems: "center",
-          justifyContent: "center",}}
-          onPress={() => this.signOutUser()}
-        >
-           
-          <Text style={{fontSize:16, color:"#fff"}}>Sign out</Text>
-          </TouchableOpacity>}
+          rightComponent={
+            <TouchableOpacity
+              style={{
+                marginRight: 0, backgroundColor: "#9F84BD", height: 40, width: 60, borderRadius: 5, alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => this.signOutUser()}
+            >
+              <Text style={{ fontSize: 16, color: "#fff" }}>Sign out</Text>
+            </TouchableOpacity>}
           centerComponent={
             <TouchableOpacity onPress={() => navigation.navigate("Add")}>
               <Text style={styles.buttonText}> Add Chat </Text>
@@ -150,7 +144,11 @@ export default class Home extends Component {
           leftComponent={
             <TouchableOpacity
               onPress={() =>
-                this.goToSettings(navigation)
+                navigation.navigate("Settings", {
+                  email: this.state.email,
+                  name: this.state.name,
+                  updateProfilePicture: this.updateProfilePicture,
+                })
               }
             >
               <Icon name="settings" color="#fff" />
@@ -160,7 +158,6 @@ export default class Home extends Component {
             backgroundColor: "#9F84BD",
           }}
         />
-        
         {this.state.hasCourses ? (
           <View
             style={{
@@ -231,8 +228,8 @@ export default class Home extends Component {
             ))}
           </View>
         ) : (
-          <Text>No classes added.</Text>
-        )}
+            <Text>No classes added.</Text>
+          )}
         <View style={styles.userProfile}></View>
         <View>
           <Text
