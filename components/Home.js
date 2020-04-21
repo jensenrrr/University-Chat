@@ -139,6 +139,7 @@ export default class Home extends Component {
               onPress={() =>
                 navigation.navigate("Settings", {
                   email: this.state.email,
+                  name: this.state.name,
                   updateProfilePicture: this.updateProfilePicture,
                 })
               }
