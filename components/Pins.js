@@ -16,13 +16,28 @@ class Pins extends React.Component {
   };
 
   parse = (snapshot) => {
-    const { timestamp: numberStamp, text, user } = snapshot.val();
+    var { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
+    function chunk(str, n) {
+      var ret = [];
+      var i;
+      var len;
+
+      for (i = 0, len = str.length; i < len; i += n) {
+        ret.push(str.substr(i, n));
+      }
+
+      return ret;
+    }
+    const createdAt = new Date(numberStamp);
+
+    var temp = chunk(text, 30).join(String.fromCharCode(10));
+    text = temp;
     const timestamp = new Date(numberStamp);
 
     const message = {
       _id,
-      timestamp,
+      createdAt,
       text,
       user,
     };

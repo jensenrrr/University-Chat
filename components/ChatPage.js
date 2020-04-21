@@ -24,18 +24,33 @@ class ChatPage extends React.Component {
   }
   parse = (snapshot) => {
     //console.log(snapshot.val());
-    const { timestamp: numberStamp, text, user } = snapshot.val();
+    var { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
     const createdAt = new Date(numberStamp);
+    function chunk(str, n) {
+      var ret = [];
+      var i;
+      var len;
 
+      for (i = 0, len = str.length; i < len; i += n) {
+        ret.push(str.substr(i, n));
+      }
+
+      return ret;
+    }
+    var temp = chunk(text, 30).join(String.fromCharCode(10));
+    text = temp;
     const message = {
       _id,
       createdAt,
       text,
       user,
     };
+    console.log(message);
+
     return message;
   };
+
   get timestamp() {
     return firebase.database.ServerValue.TIMESTAMP;
   }
@@ -117,7 +132,7 @@ class ChatPage extends React.Component {
         user,
         timestamp: this.timestamp,
       };
-      //console.log(message);
+      console.log(message);
       firebase
         .database()
         .ref(

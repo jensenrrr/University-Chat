@@ -1,17 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Button, TouchableOpacity, Text, Image } from "react-native";
-
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome5';
 class ChatHeader extends React.Component {
   render() {
-    console.log(this.props);
-
     return (
-      <View>
-        <div>
-          {this.props.name}
-          <TouchableOpacity
-          style= {styles.button}
-            title="Pins"
+      
+        <View style={{flexDirection:"row"}}>
+       
+        <Text style={{color:"#fff", textAlign:"center", margin:"4%"}}>{this.props.name}</Text>
+        <TouchableOpacity
+       style={{width:50, height:50, justifyContent:"center"}}
             onPress={() => {
               const { navigation } = this.props;
               navigation.navigate("Pins", {
@@ -21,10 +19,7 @@ class ChatHeader extends React.Component {
               });
             }}
           >
-            
-            <Image style= {styles.icon} source = {require('./pinicon.png')} />
-          </TouchableOpacity>
-        </div>
+            <Icon raised name="thumbtack" color="#fff" /></TouchableOpacity>
       </View>
     );
   }

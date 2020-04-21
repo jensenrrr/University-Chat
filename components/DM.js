@@ -9,17 +9,31 @@ class DM extends React.Component {
   };
 
   parse = (snapshot) => {
-    const { timestamp: numberStamp, text, user } = snapshot.val();
+    //console.log(snapshot.val());
+    var { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
-    const timestamp = new Date(numberStamp);
+    const createdAt = new Date(numberStamp);
+    function chunk(str, n) {
+      var ret = [];
+      var i;
+      var len;
 
+      for (i = 0, len = str.length; i < len; i += n) {
+        ret.push(str.substr(i, n));
+      }
+
+      return ret;
+    }
+    var temp = chunk(text, 30).join(String.fromCharCode(10));
+    text = temp;
     const message = {
       _id,
-      timestamp,
+      createdAt,
       text,
       user,
     };
     console.log(message);
+
     return message;
   };
   get timestamp() {
@@ -69,17 +83,14 @@ class DM extends React.Component {
   }
 
   onSend(messages) {
-    var meme = [this.props.route.params.myid, this.props.route.params.theirid];
-    meme.sort();
-    console.log(messages);
     for (let i = 0; i < messages.length; i++) {
-      console.log(messages[i]);
       const { text, user } = messages[i];
       const message = {
         text,
         user,
         timestamp: this.timestamp,
       };
+      console.log(message);
       const hello = firebase
         .database()
         .ref(
@@ -137,9 +148,10 @@ class DM extends React.Component {
       <GiftedChat
         renderBubble = {this.renderBubble.bind(this)}
         messages={this.state.messages}
-        renderUsernameOnMessage={true}
+        renderUsernameOnMessage={false}
         renderAvatarOnTop={true}
         onSend={(messages) => this.onSend(messages)}
+        multiline={false}
         user={{
           _id: firebase.auth().currentUser.uid,
           avatar: this.props.route.params.avatar,
