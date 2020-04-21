@@ -256,7 +256,6 @@ export default class Home extends Component {
               }
             >
 
-<<<<<<< HEAD
         <Button
           title="Run Create Chat Script"
           onPress={() => this.ChatCreateFunction()}
@@ -272,7 +271,6 @@ export default class Home extends Component {
             })
           }
         />
-=======
     <View style={{ flexDirection: "row" }}>
                     <View style={{
                       height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
@@ -284,7 +282,6 @@ export default class Home extends Component {
 
                   </View>
             </TouchableOpacity>
->>>>>>> 0a0225dc81cb28bb90a00d58dcc0253754db5057
 
           </View>
         ))}
