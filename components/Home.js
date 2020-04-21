@@ -128,15 +128,15 @@ export default class Home extends Component {
         <Header
           leftComponent={
             <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => this.ChatCreateFunction()}
+              
+             
             >
               <Icon name="menu" color="#fff" />
             </TouchableOpacity>
           }
           centerComponent={
             <TouchableOpacity
-              style={styles.buttonContainer}
+              
               onPress={() => navigation.navigate("Add")}
             >
               <Text style={styles.buttonText}> Add Chat </Text>
@@ -144,7 +144,7 @@ export default class Home extends Component {
           }
           rightComponent={
             <TouchableOpacity
-              style={styles.buttonContainer}
+             
               onPress={() =>
                 navigation.navigate("Settings", {
                   email: this.state.email,
@@ -173,8 +173,10 @@ export default class Home extends Component {
                 color: "#9F84BD",
                 fontWeight: "600",
                 marginTop: "1%",
-                marginBottom: "1%",
+                marginBottom: "2%",
                 textAlign: "center",
+                borderColor: "#9F84BD",
+              borderBottomWidth:1,
               }}
             >
               Course Chats
@@ -234,8 +236,10 @@ export default class Home extends Component {
               color: "#9F84BD",
               fontWeight: "600",
               marginTop: "1%",
-              marginBottom: "1%",
+              marginBottom: "2%",
               textAlign: "center",
+              borderColor: "#9F84BD",
+              borderBottomWidth:1,
             }}
           >
             Direct Messages
@@ -256,21 +260,7 @@ export default class Home extends Component {
               }
             >
 
-        <Button
-          title="Run Create Chat Script"
-          onPress={() => this.ChatCreateFunction()}
-        />
-        <div style={{ marginTop: "1%" }}></div>
-        <Button
-          title="Settings"
-          onPress={() =>
-            navigation.navigate("Settings", {
-              email: this.state.email,
-              name: this.state.name,
-              updateProfilePicture: this.updateProfilePicture,
-            })
-          }
-        />
+
     <View style={{ flexDirection: "row" }}>
                     <View style={{
                       height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
@@ -285,7 +275,6 @@ export default class Home extends Component {
 
           </View>
         ))}
-        <View style={{ marginTop: "1%" }}></View>
       </View>
     );
   }
@@ -307,6 +296,7 @@ const styles = {
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
+    fontSize:20,
   },
   courseContainer: {
     fontWeight: "500",
