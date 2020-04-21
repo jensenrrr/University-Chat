@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { GiftedChat, Actions, Bubble } from "react-native-gifted-chat"; // 0.3.0
 import * as firebase from "firebase";
+import * as ImagePicker from "expo-image-picker";
 import CustomActions from "./CustomActions";
 
 class ChatPage extends React.Component {
@@ -9,6 +10,7 @@ class ChatPage extends React.Component {
     super(props);
     this.state = {
       messages: [],
+      image: "",
       typingText: null,
       isLoadingEarlier: false,
     };
@@ -19,12 +21,13 @@ class ChatPage extends React.Component {
     this.onLongPress = this.onLongPress.bind(this);
     //this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
+    this.selectImage = this.selectImage.bind(this);
     //this.renderBubble = this.renderBubble.bind(this);
     //this.renderFooter = this.renderFooter.bind(this);
   }
   parse = (snapshot) => {
     //console.log(snapshot.val());
-    var { timestamp: numberStamp, text, user } = snapshot.val();
+    var { timestamp: numberStamp, text, user, image } = snapshot.val();
     const { key: _id } = snapshot;
     const createdAt = new Date(numberStamp);
     function chunk(str, n) {
@@ -45,6 +48,7 @@ class ChatPage extends React.Component {
       createdAt,
       text,
       user,
+      image,
     };
     console.log(message);
 
@@ -75,16 +79,48 @@ class ChatPage extends React.Component {
   }
   renderCustomActions(props) {
     const options = {
-      "Action 1": (props) => {
-        alert("option 1");
-      },
-      "Action 2": (props) => {
-        alert("option 2");
+      "Send Image": (props) => {
+        this.selectImage(props);
       },
       Cancel: () => {},
     };
-    //return <Actions {...props} options={options} />;
+    return <Actions {...props} options={options} />;
   }
+
+  getPermissionAsync = async () => {
+    if (Platform.OS === "ios") {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  selectImage = async (props) => {
+    this.getPermissionAsync();
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+        console.log(props);
+        const message = [
+          {
+            text: "",
+            user: props.user,
+          },
+        ];
+        this.onSend(message);
+      }
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
   onPressAvatar(user) {
     // console.log("go to dm for" + user.name);
     const { navigation } = this.props;
@@ -130,9 +166,9 @@ class ChatPage extends React.Component {
       const message = {
         text,
         user,
+        image: this.state.image,
         timestamp: this.timestamp,
       };
-      console.log(message);
       firebase
         .database()
         .ref(
@@ -141,7 +177,8 @@ class ChatPage extends React.Component {
             this.props.route.params.number +
             "/messages/"
         )
-        .push(message);
+        .push(message)
+        .then(() => this.setState({ image: "" }));
     }
   }
   onLongPress(context, message) {
@@ -180,17 +217,15 @@ class ChatPage extends React.Component {
     return (
       <Bubble
         {...props}
-        wrapperStyle = {{
+        wrapperStyle={{
           left: {
-              backgroundColor: '#DCDCDC',
+            backgroundColor: "#DCDCDC",
           },
           right: {
-            backgroundColor: '#C09BD8',
-          }
-  
-    }
-        }
-       />
+            backgroundColor: "#C09BD8",
+          },
+        }}
+      />
     );
   }
 
@@ -209,7 +244,7 @@ class ChatPage extends React.Component {
         renderActions={this.renderCustomActions}
         onPressAvatar={(user) => this.onPressAvatar(user)}
         onLongPress={this.onLongPress}
-        renderBubble = {this.renderBubble.bind(this)}
+        renderBubble={this.renderBubble.bind(this)}
       />
     );
   }
