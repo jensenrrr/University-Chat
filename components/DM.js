@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { GiftedChat } from "react-native-gifted-chat"; // 0.3.0
+import { View, Text, StyleSheet } from "react-native";
+import { GiftedChat, Bubble, MesssageText } from "react-native-gifted-chat"; // 0.3.0
 import * as firebase from "firebase";
 
 class DM extends React.Component {
@@ -105,9 +105,37 @@ class DM extends React.Component {
       });
     }
   }
+ /* renderTime(props) {
+    return (
+      <Text
+      {...props}
+        {...this.timestamp}
+  
+       />
+    );
+  }*/
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle = {{
+          left: {
+              backgroundColor: '#DCDCDC',
+          },
+          right: {
+            backgroundColor: '#C09BD8',
+          }
+  
+    }
+        }
+       />
+    );
+  }
+
   render() {
     return (
       <GiftedChat
+        renderBubble = {this.renderBubble.bind(this)}
         messages={this.state.messages}
         renderUsernameOnMessage={true}
         renderAvatarOnTop={true}
@@ -117,9 +145,12 @@ class DM extends React.Component {
           avatar: this.props.route.params.avatar,
           name: this.props.route.params.ourname,
         }}
+        //renderTime = {this.renderTime.bind(this)}
       />
     );
   }
 }
+
+
 
 export default DM;

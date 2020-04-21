@@ -206,6 +206,7 @@ export default class Home extends Component {
                   avatar: this.state.profilePicture,
                   ourname: this.state.name,
                   myid: firebase.auth().currentUser.uid,
+                  
                 })
               }
             >
@@ -227,6 +228,7 @@ export default class Home extends Component {
           onPress={() =>
             navigation.navigate("Settings", {
               email: this.state.email,
+              name: this.state.name,
               updateProfilePicture: this.updateProfilePicture,
             })
           }

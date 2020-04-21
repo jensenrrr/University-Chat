@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { GiftedChat, Actions } from "react-native-gifted-chat"; // 0.3.0
+import { GiftedChat, Actions, Bubble } from "react-native-gifted-chat"; // 0.3.0
 import * as firebase from "firebase";
 import CustomActions from "./CustomActions";
 
@@ -160,6 +160,25 @@ class ChatPage extends React.Component {
       );
     }
   }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle = {{
+          left: {
+              backgroundColor: '#DCDCDC',
+          },
+          right: {
+            backgroundColor: '#C09BD8',
+          }
+  
+    }
+        }
+       />
+    );
+  }
+
   render() {
     return (
       <GiftedChat
@@ -175,6 +194,7 @@ class ChatPage extends React.Component {
         renderActions={this.renderCustomActions}
         onPressAvatar={(user) => this.onPressAvatar(user)}
         onLongPress={this.onLongPress}
+        renderBubble = {this.renderBubble.bind(this)}
       />
     );
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Button, TouchableOpacity, Text, Image } from "react-native";
 
 class ChatHeader extends React.Component {
   render() {
@@ -9,7 +9,8 @@ class ChatHeader extends React.Component {
       <View>
         <div>
           {this.props.name}
-          <Button
+          <TouchableOpacity
+          style= {styles.button}
             title="Pins"
             onPress={() => {
               const { navigation } = this.props;
@@ -19,7 +20,10 @@ class ChatHeader extends React.Component {
                 name: this.props.name,
               });
             }}
-          ></Button>
+          >
+            
+            <Image style= {styles.icon} source = {require('./pinicon.png')} />
+          </TouchableOpacity>
         </div>
       </View>
     );
@@ -27,9 +31,26 @@ class ChatHeader extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+      position: "absolute",
+      right: 50,
+      backgroundColor: "#ffffff",
+      alignItems: "center",
+      justifyContent: "center",
+      height: 25,
+      width: 25,
+      //marginTop: 30,
+     // paddingVertical: 10,
+      borderRadius: 40,
+  },
+  icon: {
+    height: 15,
+    width: 15
+  },
+
   container: {
     flex: 1,
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#9F84BD8"
   },
 });
 

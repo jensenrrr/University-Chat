@@ -56,6 +56,8 @@ export default class Settings extends Component {
   render() {
     const navigation = this.props.navigation;
     let { email } = this.props.route.params;
+    let { name } = this.props.route.params;
+    //let { name } = this.props.route.params.myid;
     return (
       <View style={styles.container}>
         <View style={styles.content}>
@@ -63,6 +65,7 @@ export default class Settings extends Component {
             source={{ uri: this.state.profilePicture }}
             style={styles.userPicture}
           />
+          <Text style= {styles.userEmail}>{name}</Text>
           <Text style={styles.userEmail}>{email}</Text>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -89,7 +92,7 @@ export default class Settings extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#FFFFFF",
   },
   content: {
     paddingTop: 60,
@@ -102,14 +105,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   userEmail: {
-    color: "#FFF",
+    color: "#000000",
     fontSize: 18,
     fontWeight: "700",
     alignSelf: "center",
     marginVertical: 10,
   },
   buttonContainer: {
-    backgroundColor: "#6c5ce7",
+    backgroundColor: "#C09BD8",
     alignItems: "center",
     justifyContent: "center",
     height: 40,
