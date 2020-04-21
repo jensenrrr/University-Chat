@@ -162,15 +162,14 @@ export default class Home extends Component {
           >
             <Text style={{justifyContent:"center", color:"#9F84BD",  fontWeight: "600", marginTop:"1%", marginBottom:"1%", textAlign:"center"}}>Course Chats</Text>
             {Object.keys(this.state.courses).map((chat, index) => (
-              <View
-                key={
-                  this.state.courses[chat].course.course_code +
-                  this.state.courses[chat].course.course_number
-                }
-              >
-                <View
-                  style={styles.courseContainer}
-                  onClick={() =>
+  <View  key={
+    this.state.courses[chat].course.course_code +
+    this.state.courses[chat].course.course_number
+  }>
+                <TouchableOpacity   
+               
+                style={styles.courseContainer}
+                  onPress={() =>
                     navigation.navigate("ChatPage", {
                       name: this.state.courses[chat].course.course_name,
                       number: this.state.courses[chat].course.course_number,
@@ -178,8 +177,7 @@ export default class Home extends Component {
                       avatar: this.state.profilePicture,
                       username: this.state.name,
                     })
-                  }
-                >
+                  }> 
                   <View style={{ flexDirection: "row" }}>
                     <View style={{
                       height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
@@ -187,11 +185,11 @@ export default class Home extends Component {
                     }}>
                       <Text style={{ color: "#fff", fontWeight: "700" }}>{this.state.courses[chat].course.course_code}</Text>
                     </View>
-                    <Text style={{ alignText: "center" }}>{this.state.courses[chat].course.course_code}{this.state.courses[chat].course.course_number} - {chat}</Text>
+                    <Text style={{  }}>{this.state.courses[chat].course.course_code}{this.state.courses[chat].course.course_number} - {chat}</Text>
 
                   </View>
-                </View>
-              </View>
+                  </TouchableOpacity>
+  </View>
             ))}
           </View>
         ) : (
@@ -204,8 +202,8 @@ export default class Home extends Component {
         </View>
         {Object.keys(this.state.DMs).map((chat, index) => (
           <View key={chat}>
-            <View
-              onClick={() =>
+            <TouchableOpacity
+              onPress={() =>
                 navigation.navigate("DirectMessage", {
                   name: this.state.DMs[chat].name,
                   theirid: chat,
@@ -222,10 +220,10 @@ export default class Home extends Component {
                     }}>
                       <Text style={{ color: "#fff", fontWeight: "700" }}>{this.state.DMs[chat].name[0]}</Text>
                     </View>
-                    <Text style={{ alignText: "center" }}>{this.state.DMs[chat].name}</Text>
+                    <Text style={{  }}>{this.state.DMs[chat].name}</Text>
 
                   </View>
-            </View>
+            </TouchableOpacity>
           </View>
         ))}
         <View style={{ marginTop: "1%" }}></View>
