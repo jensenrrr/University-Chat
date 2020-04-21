@@ -31,9 +31,7 @@ export default class Home extends Component {
     firebase
       .database()
       .ref("/Users/" + firebase.auth().currentUser.uid)
-      .once("value")
-      .catch((error) => this.setState({ errorMessage: error.message }))
-      .then((snapshot) => {
+      .on("value", (snapshot) => {
         console.log(snapshot.val());
         if (snapshot.val().courses != undefined) {
           this.setState({
@@ -59,10 +57,6 @@ export default class Home extends Component {
               ".",
           });
         }
-        //let carray = [];
-        //for (var i in snapshot.val().courses) carray.push(i.course);
-        //console.log(carray);
-
         if (snapshot.val().courses != undefined) {
           this.setState({
             courses: snapshot.val().courses,
@@ -73,9 +67,13 @@ export default class Home extends Component {
             DMs: snapshot.val().DMs,
           });
         }
-
-        //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
+
+    //let carray = [];
+    //for (var i in snapshot.val().courses) carray.push(i.course);
+    //console.log(carray);
+
+    //console.log(this.state.courses["Japanese Folklore"].course.course_name);
     console.log(Object.keys(this.state.courses).length);
     console.log(this.state);
 
@@ -127,24 +125,17 @@ export default class Home extends Component {
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <Header
           leftComponent={
-            <TouchableOpacity
-              
-             
-            >
+            <TouchableOpacity>
               <Icon name="menu" color="#fff" />
             </TouchableOpacity>
           }
           centerComponent={
-            <TouchableOpacity
-              
-              onPress={() => navigation.navigate("Add")}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("Add")}>
               <Text style={styles.buttonText}> Add Chat </Text>
             </TouchableOpacity>
           }
           rightComponent={
             <TouchableOpacity
-             
               onPress={() =>
                 navigation.navigate("Settings", {
                   email: this.state.email,
@@ -176,19 +167,20 @@ export default class Home extends Component {
                 marginBottom: "2%",
                 textAlign: "center",
                 borderColor: "#9F84BD",
-              borderBottomWidth:1,
+                borderBottomWidth: 1,
               }}
             >
               Course Chats
             </Text>
             {Object.keys(this.state.courses).map((chat, index) => (
-  <View  key={
-    this.state.courses[chat].course.course_code +
-    this.state.courses[chat].course.course_number
-  }>
-                <TouchableOpacity   
-               
-                style={styles.courseContainer}
+              <View
+                key={
+                  this.state.courses[chat].course.course_code +
+                  this.state.courses[chat].course.course_number
+                }
+              >
+                <TouchableOpacity
+                  style={styles.courseContainer}
                   onPress={() =>
                     navigation.navigate("ChatPage", {
                       name: this.state.courses[chat].course.course_name,
@@ -197,7 +189,8 @@ export default class Home extends Component {
                       avatar: this.state.profilePicture,
                       username: this.state.name,
                     })
-                  }> 
+                  }
+                >
                   <View style={{ flexDirection: "row" }}>
                     <View
                       style={{
@@ -218,11 +211,13 @@ export default class Home extends Component {
                       </Text>
                     </View>
 
-                    <Text style={{  }}>{this.state.courses[chat].course.course_code}{this.state.courses[chat].course.course_number} - {chat}</Text>
-
+                    <Text style={{}}>
+                      {this.state.courses[chat].course.course_code}
+                      {this.state.courses[chat].course.course_number} - {chat}
+                    </Text>
                   </View>
-                  </TouchableOpacity>
-  </View>
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
         ) : (
@@ -239,7 +234,7 @@ export default class Home extends Component {
               marginBottom: "2%",
               textAlign: "center",
               borderColor: "#9F84BD",
-              borderBottomWidth:1,
+              borderBottomWidth: 1,
             }}
           >
             Direct Messages
@@ -255,24 +250,31 @@ export default class Home extends Component {
                   avatar: this.state.profilePicture,
                   ourname: this.state.name,
                   myid: firebase.auth().currentUser.uid,
-                  
                 })
               }
             >
-
-
-    <View style={{ flexDirection: "row" }}>
-                    <View style={{
-                      height: 50, width: 50, backgroundColor: "#9F84BD", borderRadius: 3, alignItems: "center",
-                      justifyContent: "center", color: "#fff", marginBottom: "2%", marginRight: "1%", marginLeft: "1%"
-                    }}>
-                      <Text style={{ color: "#fff", fontWeight: "700" }}>{this.state.DMs[chat].name[0]}</Text>
-                    </View>
-                    <Text style={{  }}>{this.state.DMs[chat].name}</Text>
-
-                  </View>
+              <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: "#9F84BD",
+                    borderRadius: 3,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    marginBottom: "2%",
+                    marginRight: "1%",
+                    marginLeft: "1%",
+                  }}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "700" }}>
+                    {this.state.DMs[chat].name[0]}
+                  </Text>
+                </View>
+                <Text style={{}}>{this.state.DMs[chat].name}</Text>
+              </View>
             </TouchableOpacity>
-
           </View>
         ))}
       </View>
@@ -296,7 +298,7 @@ const styles = {
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
-    fontSize:20,
+    fontSize: 20,
   },
   courseContainer: {
     fontWeight: "500",
