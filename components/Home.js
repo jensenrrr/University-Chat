@@ -119,7 +119,6 @@ export default class Home extends Component {
   render() {
     const { navigation } = this.props;
     return (
-
       <View
         style={{ flex: 1, backgroundColor: "#fff" }}
       >
@@ -152,8 +151,6 @@ export default class Home extends Component {
           }}
         />
         <View style={{ verticalAlign: "top", alignItems: "center" }}>
-
-
         </View>
         {this.state.hasCourses ? (
           
@@ -248,6 +245,7 @@ const styles = {
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center",
+
   },
   buttonText: {
     textAlign: "center",
