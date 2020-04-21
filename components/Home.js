@@ -118,30 +118,39 @@ export default class Home extends Component {
   signOutUser = () => {
     firebase.auth().signOut();
   };
+
+  goToSettings = () => {
+    this.props.navigate("Settings", {
+      email: this.state.email,
+      name: this.state.name,
+      updateProfilePicture: this.updateProfilePicture,
+    })
+  };
   // justifyContent: "center"
   render() {
     const { navigation } = this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
+     
         <Header
-          leftComponent={
-            <TouchableOpacity>
-              <Icon name="menu" color="#fff" />
-            </TouchableOpacity>
-          }
+        rightComponent={ <TouchableOpacity
+                
+          style={{marginRight:0, backgroundColor:"#9F84BD", height:40, width:60, borderRadius:5, alignItems: "center",
+          justifyContent: "center",}}
+          onPress={() => this.signOutUser()}
+        >
+           
+          <Text style={{fontSize:16, color:"#fff"}}>Sign out</Text>
+          </TouchableOpacity>}
           centerComponent={
             <TouchableOpacity onPress={() => navigation.navigate("Add")}>
               <Text style={styles.buttonText}> Add Chat </Text>
             </TouchableOpacity>
           }
-          rightComponent={
+          leftComponent={
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("Settings", {
-                  email: this.state.email,
-                  name: this.state.name,
-                  updateProfilePicture: this.updateProfilePicture,
-                })
+                this.goToSettings(navigation)
               }
             >
               <Icon name="settings" color="#fff" />
@@ -151,7 +160,7 @@ export default class Home extends Component {
             backgroundColor: "#9F84BD",
           }}
         />
-        <View style={{ verticalAlign: "top", alignItems: "center" }}></View>
+        
         {this.state.hasCourses ? (
           <View
             style={{

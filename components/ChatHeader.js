@@ -7,9 +7,10 @@ class ChatHeader extends React.Component {
       
         <View style={{flexDirection:"row"}}>
        
-        <Text style={{color:"#fff", textAlign:"center", marginTop:10, fontSize:16, paddingRight:20}}>{this.props.name}</Text>
+        <Text style={{color:"#fff", textAlign:"center", marginTop:-2, fontSize:16, fontWeight:'700', paddingRight:20}}>{this.props.name}</Text>
         <TouchableOpacity
-       style={{ width:50, height:50, justifyContent:"center", alignContent:"flex-end"}}
+       style={{ width:50, height:50,position: "absolute",
+       left: 285, top:-13, justifyContent:"center"}}
             onPress={() => {
               const { navigation } = this.props;
               navigation.navigate("Pins", {
@@ -19,7 +20,7 @@ class ChatHeader extends React.Component {
               });
             }}
           >
-            <Icon name="thumbtack" color="#fff" /></TouchableOpacity>
+            <Icon name="thumbtack" color="#fff" size={20} /></TouchableOpacity>
       </View>
     );
   }
