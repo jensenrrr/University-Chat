@@ -58,12 +58,17 @@ export default class Home extends Component {
         //let carray = [];
         //for (var i in snapshot.val().courses) carray.push(i.course);
         //console.log(carray);
-        this.setState({
-          courses: snapshot.val().courses,
-        });
-        this.setState({
-          DMs: snapshot.val().DMs,
-        });
+
+        if (snapshot.val().courses != undefined) {
+          this.setState({
+            courses: snapshot.val().courses,
+          });
+        }
+        if (snapshot.val().DMs != undefined) {
+          this.setState({
+            DMs: snapshot.val().DMs,
+          });
+        }
 
         //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
