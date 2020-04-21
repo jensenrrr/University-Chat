@@ -31,9 +31,7 @@ export default class Home extends Component {
     firebase
       .database()
       .ref("/Users/" + firebase.auth().currentUser.uid)
-      .once("value")
-      .catch((error) => this.setState({ errorMessage: error.message }))
-      .then((snapshot) => {
+      .on("value", (snapshot) => {
         console.log(snapshot.val());
         if (snapshot.val().courses != undefined) {
           this.setState({
@@ -59,10 +57,6 @@ export default class Home extends Component {
               ".",
           });
         }
-        //let carray = [];
-        //for (var i in snapshot.val().courses) carray.push(i.course);
-        //console.log(carray);
-
         if (snapshot.val().courses != undefined) {
           this.setState({
             courses: snapshot.val().courses,
@@ -73,9 +67,13 @@ export default class Home extends Component {
             DMs: snapshot.val().DMs,
           });
         }
-
-        //console.log(this.state.courses["Japanese Folklore"].course.course_name);
       });
+
+    //let carray = [];
+    //for (var i in snapshot.val().courses) carray.push(i.course);
+    //console.log(carray);
+
+    //console.log(this.state.courses["Japanese Folklore"].course.course_name);
     console.log(Object.keys(this.state.courses).length);
     console.log(this.state);
 
@@ -141,6 +139,7 @@ export default class Home extends Component {
               onPress={() =>
                 navigation.navigate("Settings", {
                   email: this.state.email,
+                  name: this.state.name,
                   updateProfilePicture: this.updateProfilePicture,
                 })
               }
