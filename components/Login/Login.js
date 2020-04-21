@@ -7,7 +7,7 @@ function Login({ navigation }) {
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View>
-        <Image source = {'./UniversityChat.png'} style ={styles.logo} />
+        <Image style = {styles.logo} source={require('./UniversityChat.png')}/>
         <Text style={styles.title}>University Chat</Text>
         <LoginForm navigation={navigation} />
       </View>
@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   logo: {
-    flex: 1,
-    width: "100%",
-    marginTop: "10%",
+    
+    height:100,
+    width: 100,
+    
     resizeMode: "contain",
     alignSelf: "center"
   },
