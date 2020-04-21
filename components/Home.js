@@ -113,17 +113,14 @@ export default class Home extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View
-        style={{ flex: 1, alignItems: "center", backgroundColor: "#fff" }}
-      >
-        <View style={{ verticalAlign: "top", alignItems: "left" }}>
-
-            <TouchableOpacity 
-              style={styles.buttonContainer}
-              onPress={() => navigation.navigate("Add")}
-            >
-            <Text style={styles.buttonText}> Add Chat </Text></TouchableOpacity>
-
+      <View style={{ flex: 1, alignItems: "center", backgroundColor: "#fff" }}>
+        <View style={{ alignItems: "left" }}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => navigation.navigate("Add")}
+          >
+            <Text style={styles.buttonText}> Add Chat </Text>
+          </TouchableOpacity>
         </View>
         {this.state.hasCourses ? (
           <View
@@ -251,7 +248,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     width: 2000,
-   height:50,
+    height: 50,
   },
   buttonText: {
     textAlign: "center",
