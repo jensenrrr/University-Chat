@@ -65,7 +65,7 @@ export default class Settings extends Component {
             source={{ uri: this.state.profilePicture }}
             style={styles.userPicture}
           />
-          <Text style= {styles.userEmail}>{name}</Text>
+          <Text style={styles.userEmail}>{name}</Text>
           <Text style={styles.userEmail}>{email}</Text>
           <TouchableOpacity
             style={styles.buttonContainer}
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 30,
     paddingVertical: 10,
-    borderRadius: 40,
+    borderRadius: 10,
   },
   buttonText: {
     textAlign: "center",

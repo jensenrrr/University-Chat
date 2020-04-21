@@ -66,7 +66,6 @@ class RegisterForm extends Component {
           <View style={styles.inputView}>
             <TextInput
               placeholder="First Name"
-              
               returnKeyType="next"
               onSubmitEditing={() => this.lastNameInput.focus()}
               onChangeText={(firstName) => this.setState({ firstName })}
@@ -78,7 +77,6 @@ class RegisterForm extends Component {
           <View style={styles.inputView}>
             <TextInput
               placeholder="Last Name"
-              
               returnKeyType="next"
               onSubmitEditing={() => this.emailInput.focus()}
               onChangeText={(lastName) => this.setState({ lastName })}
@@ -93,7 +91,6 @@ class RegisterForm extends Component {
           <View style={styles.inputView}>
             <TextInput
               placeholder="Email"
-             
               returnKeyType="next"
               onSubmitEditing={() => this.passwordInput.focus()}
               onChangeText={(email) => this.setState({ email })}
@@ -110,7 +107,6 @@ class RegisterForm extends Component {
           <View style={styles.inputView}>
             <TextInput
               placeholder="Password"
-              
               secureTextEntry
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password}
@@ -153,7 +149,7 @@ const styles = StyleSheet.create({
     borderColor: "#9F84BD",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
- 
+
   buttonContainer: {
     backgroundColor: "#C09BD8",
     alignItems: "center",
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
-    fontSize:20,
+    fontSize: 20,
   },
   logInText: {
     height: 40,
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   error: {
-    color: "black",
+    color: "#C09BD8",
     fontSize: 14,
     fontWeight: "500",
     textAlign: "center",

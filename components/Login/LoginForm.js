@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     borderColor: "#9F84BD",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  
+
   buttonContainer: {
     backgroundColor: "#C09BD8",
     alignItems: "center",
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFF",
     fontWeight: "500",
-    fontSize:20,
+    fontSize: 20,
   },
   signUpText: {
     height: 40,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   error: {
-    color: "#fff",
+    color: "#C09BD8",
     fontSize: 14,
     fontWeight: "500",
     textAlign: "center",

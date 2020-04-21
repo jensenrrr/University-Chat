@@ -42,19 +42,16 @@ export default class UpdateProfilePicutre extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.title}>Enter Profile Picutre URL </Text>
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="profile picture url"
-              placeholderTextColor="rgba(255, 255, 255, 0.7)"
-              onChangeText={(newProfilePicture) =>
-                this.setState({ newProfilePicture })
-              }
-              value={this.state.newProfilePicture}
-              autoCorrect={false}
-              style={styles.input}
-            />
-          </View>
+          <TextInput
+            placeholder="profile picture url"
+            placeholderTextColor="#C09BD8"
+            onChangeText={(newProfilePicture) =>
+              this.setState({ newProfilePicture })
+            }
+            value={this.state.newProfilePicture}
+            autoCorrect={false}
+            style={styles.input}
+          />
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={this.handleUpdate}
@@ -69,39 +66,26 @@ export default class UpdateProfilePicutre extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#fff",
   },
   content: {
-    paddingTop: 200,
+    paddingTop: 250,
     marginHorizontal: 30,
-  },
-  title: {
-    color: "#FFF",
-    fontSize: 18,
-    fontWeight: "700",
-    alignSelf: "center",
-    marginVertical: 20,
   },
   input: {
     height: 40,
     marginBottom: 30,
-    borderRadius: 40,
-    color: "#FFF",
+    borderColor: "#9F84BD",
+    borderBottomWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: 15,
   },
-  inputView: {
-    backgroundColor: "rgba(108, 92, 231,0.6)",
-    height: 40,
-    borderRadius: 40,
-    marginBottom: 30,
-  },
   buttonContainer: {
-    backgroundColor: "#6c5ce7",
+    backgroundColor: "#C09BD8",
     alignItems: "center",
     justifyContent: "center",
     height: 40,
     paddingVertical: 10,
-    borderRadius: 40,
+    borderRadius: 10,
   },
   buttonText: {
     textAlign: "center",
