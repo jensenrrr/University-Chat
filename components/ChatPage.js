@@ -106,19 +106,41 @@ class ChatPage extends React.Component {
         quality: 1,
       });
       if (!result.cancelled) {
-        this.setState({ image: result.uri });
-        console.log(props);
-        const message = [
-          {
-            text: "",
-            user: props.user,
-          },
-        ];
-        this.onSend(message);
+        const imageName = result.uri.split("/").pop();
+        this.uploadImage(result.uri, imageName)
+          .then(() => {
+            firebase
+              .storage()
+              .ref("images/" + imageName)
+              .getDownloadURL()
+              .then((url) => {
+                this.setState({ image: url });
+                const message = [
+                  {
+                    text: "",
+                    user: props.user,
+                  },
+                ];
+                this.onSend(message);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     } catch (E) {
       console.log(E);
     }
+  };
+
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const storageRef = firebase
+      .storage()
+      .ref()
+      .child("images/" + imageName);
+    return storageRef.put(blob);
   };
 
   onPressAvatar(user) {
