@@ -21,25 +21,12 @@ export default class CourseSearch extends React.Component {
     this.arrayholder = courses;
   }
   OnPressItem(item) {
-    console.log("Selected Item :", item);
     this.setState({
       selected: item,
     });
-    //console.log(this.state.selected);
   }
   ConfirmPress() {
-    console.log(this.state.selected);
-    console.log("/Users/" + firebase.auth().currentUser.uid + "/courses/");
     if (this.state.selected != {}) {
-      /*
-      firebase
-        .database()
-        .ref("/Users/" + firebase.auth().currentUser.uid + "/courses/")
-        .set({
-          course_numbers: number,
-        })
-        .then((d) => console.log("Data updated." + d));
-*/
       const newReference = firebase
         .database()
         .ref("/Users/" + firebase.auth().currentUser.uid + "/courses/")
@@ -49,7 +36,7 @@ export default class CourseSearch extends React.Component {
         .set({
           course: this.state.selected,
         })
-        .then(() => console.log("Data updated."));
+        .then(() => {});
     }
   }
   SearchFilterFunction(text) {
@@ -65,20 +52,7 @@ export default class CourseSearch extends React.Component {
       search: text,
     });
   }
-  /*
-  ListViewItemSeparator = () => {
-    //Item sparator view
-    return (
-      <View
-        style={{
-          height: 0.3,
-          width: '90%',
-          backgroundColor: '#080808',
-        }}
-      />
-    );
-  };
-*/
+
   render() {
     return (
       <View>

@@ -27,12 +27,10 @@ export default class Home extends Component {
   componentDidMount() {
     const { email } = firebase.auth().currentUser;
     this.setState({ email });
-    //console.log(firebase.auth().currentUser.uid);
     firebase
       .database()
       .ref("/Users/" + firebase.auth().currentUser.uid)
       .on("value", (snapshot) => {
-        console.log(snapshot.val());
         if (snapshot.val().courses != undefined) {
           this.setState({
             hasCourses: true,
@@ -177,7 +175,6 @@ export default class Home extends Component {
                         borderRadius: 3,
                         alignItems: "center",
                         justifyContent: "center",
-                        color: "#fff",
                         marginBottom: "2%",
                         marginRight: "1%",
                         marginLeft: "1%",
@@ -239,7 +236,6 @@ export default class Home extends Component {
                     borderRadius: 3,
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#fff",
                     marginBottom: "2%",
                     marginRight: "1%",
                     marginLeft: "1%",
@@ -278,10 +274,8 @@ const styles = {
     fontSize: 20,
   },
   courseContainer: {
-    fontWeight: "500",
     borderColor: "#9F84BD",
     borderBottomWidth: 2,
-    color: "#9F84BD",
     marginTop: "1%",
   },
 };

@@ -28,9 +28,7 @@ class RegisterForm extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log(user);
         var strang = "Users/" + user.user.uid;
-        console.log(strang);
         firebase
           .database()
           .ref(strang)
@@ -42,11 +40,8 @@ class RegisterForm extends Component {
             profilePicture,
           })
           .then((data) => {
-            //success callback
-            console.log("data ", data);
           })
           .catch((error) => {
-            //error callback
             console.log("error ", error);
           });
       })

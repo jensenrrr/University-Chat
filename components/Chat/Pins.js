@@ -41,7 +41,7 @@ class Pins extends React.Component {
       text,
       user,
     };
-    console.log(message);
+
     return message;
   };
   get timestamp() {
@@ -66,7 +66,6 @@ class Pins extends React.Component {
     });
   }
   componentDidMount() {
-    console.log(this.props);
     firebase
       .database()
       .ref(
@@ -77,7 +76,6 @@ class Pins extends React.Component {
       )
       .once("value")
       .then((snapshot) => {
-        console.log(snapshot.val());
       });
     this.on((message) =>
       this.setState((previousState) => ({

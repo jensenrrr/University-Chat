@@ -22,14 +22,11 @@ export default class UpdatePassword extends Component {
     const navigation = this.props.navigation;
     const user = firebase.auth().currentUser;
 
-    // Check if password is >= 6 characters
     if (this.passwordLengthCheck(newPassword)) {
-      // Check if passwords match
       if (this.passwordsMatch(newPassword, confirmPassword)) {
         user
           .updatePassword(newPassword)
           .then(() => {
-            console.log("Successfully updated password.");
             navigation.goBack();
           })
           .catch((error) => this.setState({ errorMessage: error.message }));

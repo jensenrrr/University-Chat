@@ -9,7 +9,6 @@ class DM extends React.Component {
   };
 
   parse = (snapshot) => {
-    //console.log(snapshot.val());
     var { timestamp: numberStamp, text, user } = snapshot.val();
     const { key: _id } = snapshot;
     const createdAt = new Date(numberStamp);
@@ -32,7 +31,6 @@ class DM extends React.Component {
       text,
       user,
     };
-    console.log(message);
 
     return message;
   };
@@ -53,7 +51,6 @@ class DM extends React.Component {
       .on("child_added", (snapshot) => callback(this.parse(snapshot)));
 
   componentDidMount() {
-    console.log(this.props);
     this.on((message) =>
       this.setState((previousState) => ({
         messages: GiftedChat.append(previousState.messages, message),
@@ -90,7 +87,6 @@ class DM extends React.Component {
         user,
         timestamp: this.timestamp,
       };
-      console.log(message);
       const hello = firebase
         .database()
         .ref(
@@ -116,15 +112,7 @@ class DM extends React.Component {
       });
     }
   }
- /* renderTime(props) {
-    return (
-      <Text
-      {...props}
-        {...this.timestamp}
-  
-       />
-    );
-  }*/
+
   renderBubble(props) {
     return (
       <Bubble
@@ -157,7 +145,6 @@ class DM extends React.Component {
           avatar: this.props.route.params.avatar,
           name: this.props.route.params.ourname,
         }}
-        //renderTime = {this.renderTime.bind(this)}
       />
     );
   }

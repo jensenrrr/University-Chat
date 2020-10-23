@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from "react-native";
 import * as firebase from "firebase";
 
@@ -43,7 +42,6 @@ export default class Settings extends Component {
       .ref("/Users/" + firebase.auth().currentUser.uid)
       .once("value")
       .then((snapshot) => {
-        console.log(snapshot.val());
         if (snapshot.val().profilePicture != undefined) {
           this.setState({ profilePicture: snapshot.val().profilePicture });
           this.props.route.params.updateProfilePicture(
@@ -57,7 +55,7 @@ export default class Settings extends Component {
     const navigation = this.props.navigation;
     let { email } = this.props.route.params;
     let { name } = this.props.route.params;
-    //let { name } = this.props.route.params.myid;
+
     return (
       <View style={styles.container}>
         <View style={styles.content}>
