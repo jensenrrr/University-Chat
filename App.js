@@ -6,7 +6,7 @@ import * as firebase from "firebase";
 import { Icon } from 'react-native-elements';
 import Home from "./components/Home";
 import Login from "./components/Account/Login/Login";
-import Register from "./components/Register/Register";
+import Register from "./components/Account/Register/Register";
 import ChatPage from "./components/Chat/ChatPage";
 import ChatSelection from "./components/Chat/ChatSelection";
 import ChatHeader from "./components/Chat/ChatHeader";
@@ -58,16 +58,14 @@ export default class App extends Component {
                 name="Home"
                 component={Home}
                 options={{
-                  headerTitle: "Welcome",
+                  headerShown: false
                 }}
               />
               <Stack.Screen
                 name="ChatPage"
                 component={ChatPage}
-                // options={({ route }) => ({ title: route.params.name })}
                 options={({ navigation, route }) => ({
                   headerTitle: () => {
-                    console.log(route);
                     return (
                       <ChatHeader
                         code={route.params.code}
@@ -78,16 +76,6 @@ export default class App extends Component {
                     );
                   },
                 })}
-                /*
-                options={({ navigation, route }) => ({
-                  headerTitle: () => (
-                    <PinModal
-                      code={route.params.code}
-                      number={route.params.number}
-                      name={route.params.name}
-                    />
-                  ),
-                })}*/
               />
               <Stack.Screen
                 name="DirectMessage"

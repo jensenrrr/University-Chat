@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       height: 25,
       width: 25,
-      //marginTop: 30,
-     // paddingVertical: 10,
       borderRadius: 40,
   },
   icon: {

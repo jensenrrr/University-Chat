@@ -15,18 +15,13 @@ class ChatPage extends React.Component {
       isLoadingEarlier: false,
     };
 
-    //this._isMounted = false;
     this.onSend = this.onSend.bind(this);
     this.onPressAvatar = this.onPressAvatar.bind(this);
     this.onLongPress = this.onLongPress.bind(this);
-    //this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     this.selectImage = this.selectImage.bind(this);
-    //this.renderBubble = this.renderBubble.bind(this);
-    //this.renderFooter = this.renderFooter.bind(this);
   }
   parse = (snapshot) => {
-    //console.log(snapshot.val());
     var { timestamp: numberStamp, text, user, image } = snapshot.val();
     const { key: _id } = snapshot;
     const createdAt = new Date(numberStamp);
@@ -50,7 +45,6 @@ class ChatPage extends React.Component {
       user,
       image,
     };
-    console.log(message);
 
     return message;
   };
@@ -144,7 +138,6 @@ class ChatPage extends React.Component {
   };
 
   onPressAvatar(user) {
-    // console.log("go to dm for" + user.name);
     const { navigation } = this.props;
 
     navigation.navigate("DirectMessage", {
@@ -156,10 +149,8 @@ class ChatPage extends React.Component {
     });
   }
   renderActions() {
-    console.log("meme");
   }
   onPressActionButton() {
-    console.log("action button");
     if (this.props.onLongPress) {
       this.props.onLongPress(this.context, this.props.currentMessage);
     } else {
@@ -204,7 +195,6 @@ class ChatPage extends React.Component {
     }
   }
   onLongPress(context, message) {
-    console.log(context, message);
     if (message.text) {
       const options = ["Copy Text", "Pin Message", "Cancel"];
       const cancelButtonIndex = options.length - 1;
@@ -256,7 +246,6 @@ class ChatPage extends React.Component {
       <GiftedChat
         messages={this.state.messages}
         renderUsernameOnMessage={true}
-        //renderAvatarOnTop={true}
         onSend={(messages) => this.onSend(messages)}
         user={{
           _id: firebase.auth().currentUser.uid,
