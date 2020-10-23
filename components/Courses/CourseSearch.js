@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
-import courses from "./data/courses.json";
+import courses from "../data/courses.json";
 import * as firebase from "firebase";
 
 export default class CourseSearch extends React.Component {

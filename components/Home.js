@@ -68,23 +68,6 @@ export default class Home extends Component {
           });
         }
       });
-
-    //let carray = [];
-    //for (var i in snapshot.val().courses) carray.push(i.course);
-    //console.log(carray);
-
-    //console.log(this.state.courses["Japanese Folklore"].course.course_name);
-    console.log(Object.keys(this.state.courses).length);
-    console.log(this.state);
-
-    /*
-    firebase
-      .database()
-      .ref("/Users/" + firebase.auth().currentUser.uid)
-      .once("value")
-      .then((snapshot) => {
-        console.log(snapshot.val());
-      });*/
   }
 
   updateProfilePicture = (url) => {
@@ -92,17 +75,6 @@ export default class Home extends Component {
   };
 
   ChatCreateFunction() {
-    /*
-    firebase
-      .database()
-      .ref("/Chats/" + "JPT4502")
-      .set({
-        name: "Japanese Folklore",
-        code: "JPT",
-        number: "4502",
-      });
-*/
-
     data.forEach((chat) => {
       firebase
         .database()
@@ -119,8 +91,6 @@ export default class Home extends Component {
     firebase.auth().signOut();
   };
 
-
-  // justifyContent: "center"
   render() {
     const { navigation } = this.props;
     return (
