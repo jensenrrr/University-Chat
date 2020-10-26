@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableHighlight,
   Button,
+  TouchableOpacity
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import courses from "../data/courses.json";
@@ -25,7 +26,9 @@ export default class CourseSearch extends React.Component {
       selected: item,
     });
   }
-  ConfirmPress() {
+  AddCourseChat(item) {
+    console.log("add course chat:", item);
+    /*
     if (this.state.selected != {}) {
       const newReference = firebase
         .database()
@@ -38,6 +41,7 @@ export default class CourseSearch extends React.Component {
         })
         .then(() => {});
     }
+    */
   }
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function (item) {
@@ -56,29 +60,32 @@ export default class CourseSearch extends React.Component {
   render() {
     return (
       <View>
-        <SearchBar
-          onChangeText={(text) => this.SearchFilterFunction(text)}
-          onClear={(text) => this.SearchFilterFunction("")}
-          placeholder="Search For a Course"
-          value={this.state.search}
+      <SearchBar
+        onChangeText={(text) => this.SearchFilterFunction(text)}
+        onClear={(text) => this.SearchFilterFunction("")}
+        placeholder="Search For a Course"
+        value={this.state.search}
+      />
+      <View style={styles.viewStyle}>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({ item }) => (
+              <View style={styles.courseContainer}>
+                  <View style={styles.textContainer}>
+                    <Text>{item.course_code}{item.course_number}</Text>
+                    <Text style={styles.textStyle}>{item.course_name}</Text>
+                  </View>
+                <TouchableOpacity style={styles.addButton}  onPress={this.AddCourseChat(item)}>
+                  <Text style={styles.buttonText}> Add Chat </Text>
+                </TouchableOpacity>
+              </View>
+          )}
+          enableEmptySections={true}
+          style={{flex: 1}}
+          keyExtractor={(item, index) => index.toString()}
         />
-        <View style={styles.viewStyle}>
-          <FlatList
-            data={this.state.dataSource}
-            renderItem={({ item }) => (
-              <TouchableHighlight onPress={() => this.OnPressItem(item)}>
-                <Text style={styles.textStyle}>{item.course_name}</Text>
-              </TouchableHighlight>
-            )}
-            enableEmptySections={true}
-            style={{ marginTop: 10 }}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-        <View style={styles.button}>
-          <Button title="Confirm" onPress={() => this.ConfirmPress()} />
-        </View>
       </View>
+    </View>
     );
   }
 }
@@ -87,8 +94,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     maxHeight: "75%",
   },
+  courseContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "25 0",
+    height: "100"
+  },
+  textContainer: {
+    width: "75%",
+    flexDirection: 'row'
+  },
   textStyle: {
-    padding: 10,
+  },
+  addButton: {
+    backgroundColor: "#90EE90",
   },
   button: {
     marginVertical: 8,
