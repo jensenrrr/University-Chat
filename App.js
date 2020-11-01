@@ -17,6 +17,7 @@ import Add from "./components/Courses/Add";
 import DM from "./components/Chat/DM";
 import { StyleSheet, Button, Text, View } from "react-native";
 import Pins from "./components/Chat/Pins";
+import firebaseConfig from "./config/firebase";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Stack = createStackNavigator();
@@ -116,17 +117,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-// Firebase Config
-var firebaseConfig = {
-  apiKey: "AIzaSyA_39e6SCijA5UWOrLViU_169i7DCpw1iE",
-  authDomain: "universitychat-9a9c8.firebaseapp.com",
-  databaseURL: "https://universitychat-9a9c8.firebaseio.com",
-  projectId: "universitychat-9a9c8",
-  storageBucket: "universitychat-9a9c8.appspot.com",
-  messagingSenderId: "378196588409",
-  appId: "1:378196588409:web:1916dfb21986d052f061a8",
-};
 
 // Initialize Firebase
 if (!firebase.apps.length) {
