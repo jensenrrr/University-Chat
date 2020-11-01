@@ -12,29 +12,29 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
-    "expo": "^38.0.0",
-    "expo-image-picker": "~8.3.0",
+    "expo": "^39.0.0",
+    "expo-image-picker": "~9.1.0",
     "firebase": "7.9.0",
-    "react": "16.11.0",
-    "react-dom": "16.11.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-atoz-listview": "0.0.7",
     "react-native-camera-roll-picker": "^2.0.0",
     "react-native-elements": "^1.2.7",
-    "react-native-gesture-handler": "~1.6.0",
+    "react-native-gesture-handler": "~1.7.0",
     "react-native-gifted-chat": "^0.13.0",
     "react-native-nav": "^2.0.2",
-    "react-native-reanimated": "~1.9.0",
-    "react-native-safe-area-context": "~3.0.7",
-    "react-native-screens": "~2.9.0",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.4",
+    "react-native-screens": "~2.10.1",
     "react-native-search-box": "0.0.19",
     "react-native-sectioned-multi-select": "^0.7.6",
     "react-native-vector-icons": "^6.6.0",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "^0.11.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "babel-preset-expo": "^8.2.3"
+    "babel-preset-expo": "^8.3.0"
   },
   "private": true
 }
