@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useRef } from "react";
 import * as firebase from "firebase";
 import {
   StyleSheet,
@@ -8,129 +8,117 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-class RegisterForm extends Component {
-  state = {
+const RegisterForm = ({ navigation, ...props }) => {
+  const lastNameInput = useRef(null);
+  const emailInput = useRef(null);
+  const passwordInput = useRef(null);
+
+  const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    username: "",
     email: "",
     password: "",
-    errorMessage: null,
-  };
+    courses: [],
+    profilePicture:
+      "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png",
+  });
 
-  handleRegister = () => {
-    const { email, password, firstName, lastName } = this.state;
-    // Default profile picture, user can update in settings
-    const profilePicture =
-      "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png";
-    var courses = [];
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleRegister = () => {
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(userData.email, userData.password)
       .then((user) => {
-        var strang = "Users/" + user.user.uid;
         firebase
           .database()
-          .ref(strang)
-          .set({
-            firstName,
-            lastName,
-            email,
-            courses,
-            profilePicture,
-          })
-          .then((data) => {
-          })
+          .ref("Users/" + user.user.uid)
+          .set(userData)
           .catch((error) => {
-            console.log("error ", error);
+            setErrorMessage("An error has occured, please try again.");
           });
       })
-      .catch((error) => this.setState({ errorMessage: error.message }));
+      .catch((error) => setErrorMessage(error.message));
   };
 
-  render() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <View style={styles.errorMessage}>
-          {this.state.errorMessage && (
-            <Text style={styles.error}>{this.state.errorMessage}</Text>
-          )}
-        </View>
-        <View style={styles.form}>
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="First Name"
-              returnKeyType="next"
-              onSubmitEditing={() => this.lastNameInput.focus()}
-              onChangeText={(firstName) => this.setState({ firstName })}
-              value={this.state.firstName}
-              autoCorrect={false}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="Last Name"
-              returnKeyType="next"
-              onSubmitEditing={() => this.emailInput.focus()}
-              onChangeText={(lastName) => this.setState({ lastName })}
-              value={this.state.lastName}
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => {
-                this.lastNameInput = input;
-              }}
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="Email"
-              returnKeyType="next"
-              onSubmitEditing={() => this.passwordInput.focus()}
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => {
-                this.emailInput = input;
-              }}
-            />
-          </View>
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-              returnKeyType="go"
-              style={styles.input}
-              ref={(input) => {
-                this.passwordInput = input;
-              }}
-            />
-          </View>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={this.handleRegister}
-          >
-            <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.logInText}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={{ color: "#9F84BD" }}>
-              Already have an account? Log In!
-            </Text>
-          </TouchableOpacity>
-        </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.errorMessage}>
+        {errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
       </View>
-    );
-  }
-}
+      <View style={styles.form}>
+        <View style={styles.inputView}>
+          <TextInput
+            placeholder="First Name"
+            returnKeyType="next"
+            onSubmitEditing={() => lastNameInput.current.focus()}
+            onChangeText={(firstName) =>
+              setUserData({ ...userData, firstName: firstName })
+            }
+            value={userData.firstName}
+            autoCorrect={false}
+            style={styles.input}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput
+            placeholder="Last Name"
+            returnKeyType="next"
+            onSubmitEditing={() => emailInput.current.focus()}
+            onChangeText={(lastName) =>
+              setUserData({ ...userData, lastName: lastName })
+            }
+            value={userData.lastName}
+            autoCorrect={false}
+            style={styles.input}
+            ref={lastNameInput}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput
+            placeholder="Email"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordInput.current.focus()}
+            onChangeText={(email) => setUserData({ ...userData, email: email })}
+            value={userData.email}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            ref={emailInput}
+          />
+        </View>
+        <View style={styles.inputView}>
+          <TextInput
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={(password) =>
+              setUserData({ ...userData, password: password })
+            }
+            value={userData.password}
+            returnKeyType="go"
+            style={styles.input}
+            ref={passwordInput}
+          />
+        </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handleRegister}
+        >
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logInText}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={{ color: "#9F84BD" }}>
+            Already have an account? Log In!
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
 export default RegisterForm;
 
