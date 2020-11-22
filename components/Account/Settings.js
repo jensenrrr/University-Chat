@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 
 export default class Settings extends Component {
@@ -51,6 +45,15 @@ export default class Settings extends Component {
       });
   };
 
+  signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   render() {
     const navigation = this.props.navigation;
     let { email } = this.props.route.params;
@@ -78,6 +81,12 @@ export default class Settings extends Component {
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() => navigation.navigate("Update Password")}
+          >
+            <Text style={styles.buttonText}>Update Password</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.signOut}
           >
             <Text style={styles.buttonText}>Update Password</Text>
           </TouchableOpacity>
