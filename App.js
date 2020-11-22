@@ -1,16 +1,17 @@
 import "react-native-gesture-handler";
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as firebase from "firebase";
-import { StyleSheet, Button, Text, View } from "react-native";
 import firebaseConfig from "./config/firebase";
-
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import accountReducer from "./redux/reducer";
 import GettingStarted from "./components/Account/GettingStarted";
 import Login from "./components/Account/Login/Login";
 import Register from "./components/Account/Register/Register";
-import Home from "./components/Home";
-import ChatPage from "./components/Chat/ChatPage";
+import Home from "./components/HomePage/Home";
+import CourseChat from "./components/Chat/CourseChat";
 import ChatHeader from "./components/Chat/ChatHeader";
 import Settings from "./components/Account/Settings";
 import UpdateProfilePicture from "./components/Account/UpdateProfilePicture";
@@ -20,6 +21,11 @@ import DM from "./components/Chat/DM";
 import Pins from "./components/Chat/Pins";
 
 const Stack = createStackNavigator();
+const store = createStore(
+  accountReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 const MyTheme = {
   colors: {
     primary: "rgb(255, 45, 85)",
@@ -29,30 +35,27 @@ const MyTheme = {
     border: "transparent",
   },
 };
-export default class App extends Component {
-  state = {
-    isLoggedIn: false,
-  };
 
-  componentDidMount() {
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const App = () => {
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ isLoggedIn: user ? true : false });
+      if (user) setUserInfo(true);
+      else setUserInfo(false);
     });
-  }
+  }, []);
 
-  LogoTitle() {
-    return;
-  }
-
-  signOutUser = () => {
-    firebase.auth().signOut();
-  };
-
-  render() {
-    return (
+  return (
+    <Provider store={store}>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator>
-          {this.state.isLoggedIn ? (
+          {userInfo ? (
             <>
               <Stack.Screen
                 name="Home"
@@ -63,8 +66,8 @@ export default class App extends Component {
               />
               <Stack.Screen name="Getting Started" component={GettingStarted} />
               <Stack.Screen
-                name="ChatPage"
-                component={ChatPage}
+                name="CourseChat"
+                component={CourseChat}
                 options={({ navigation, route }) => ({
                   headerTitle: () => {
                     return (
@@ -104,20 +107,8 @@ export default class App extends Component {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    );
-  }
-}
+    </Provider>
+  );
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#a29bfe",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+export default App;

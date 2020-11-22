@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 
-const GettingStartes = ({ ...props }) => {
+const GettingStarted = ({ ...props }) => {
   return (
     <View>
       Getting Started!
@@ -11,3 +11,5 @@ const GettingStartes = ({ ...props }) => {
     </View>
   );
 };
+
+export default GettingStarted;

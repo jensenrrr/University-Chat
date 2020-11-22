@@ -18,27 +18,24 @@ const RegisterForm = ({ navigation, ...props }) => {
     lastName: "",
     email: "",
     password: "",
-    courses: [],
-    profilePicture:
-      "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png",
   });
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleRegister = () => {
-    firebase
+  const handleRegister = async () => {
+    const newUser = await firebase
       .auth()
-      .createUserWithEmailAndPassword(userData.email, userData.password)
-      .then((user) => {
-        firebase
-          .database()
-          .ref("Users/" + user.user.uid)
-          .set(userData)
-          .catch((error) => {
-            setErrorMessage("An error has occured, please try again.");
-          });
-      })
-      .catch((error) => setErrorMessage(error.message));
+      .createUserWithEmailAndPassword(userData.email, userData.password);
+    await firebase
+      .database()
+      .ref("Users/" + newUser.user.uid)
+      .set({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        profilePicture:
+          "https://www.sackettwaconia.com/wp-content/uploads/default-profile.png",
+      });
   };
 
   return (
