@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, Text, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
-import { getUserData } from "../../redux/actions";
+import { getUserData, signOut } from "../../redux/actions";
 import { Icon, Header } from "react-native-elements";
 import SubscribedCourses from "./SubscribedCourses";
 import SubscribedGroupChats from "./SubscribedGroupChats";
@@ -42,10 +42,6 @@ const Home = ({ navigation }) => {
     }
   }, []);
 
-  const signOutUser = () => {
-    firebase.auth().signOut();
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <Header
@@ -60,7 +56,7 @@ const Home = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => signOutUser()}
+            onPress={() => signOut(dispatch)}
           >
             <Text style={{ fontSize: 16, color: "#fff" }}>Sign out</Text>
           </TouchableOpacity>
