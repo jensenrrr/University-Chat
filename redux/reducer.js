@@ -20,6 +20,10 @@ const accountReducer = (state = INITIAL_STATE, action) => {
         courses: action.payload.courses,
         dms: action.payload.dms,
       };
+    case "SIGN_OUT":
+      return {
+        INITIAL_STATE,
+      }
     default:
       return state;
   }

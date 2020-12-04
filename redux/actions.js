@@ -1,4 +1,5 @@
 import * as firebase from "firebase";
+import { signOutUser } from "../utilities/dbInteraction"
 
 //not an action -> due for refactor later
 export const getUserData = (dispatch) => {
@@ -18,8 +19,17 @@ export const getUserData = (dispatch) => {
     });
 };
 
+export const signOut = (dispatch) => {
+  signOutUser();
+  dispatch(signOutAction());
+};
+
 //action
 export const setUserData = (userData) => ({
   type: "SET_USER_DATA",
   payload: userData,
+});
+
+export const signOutAction = () => ({
+  type: "SIGN_OUT",
 });
